@@ -1,38 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ChamadaComponent } from './chamada/chamada.component';
-import { AcompanhamentoAulaComponent } from './acompanhamento-aula/acompanhamento-aula.component';
-import { HomeComponent } from './home/home.component';
-
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
+import { NavComponent } from './nav/nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { ProfessorListComponent } from './professor/professor-list/professor-list.component';
+import { ProfessorEditComponent } from './professor/professor-edit/professor-edit.component';
+import { PresencaComponent } from './presenca/presenca.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'chamada', component: ChamadaComponent },
-  { path: 'acompanhamento-aula', component: AcompanhamentoAulaComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: HomeComponent }
-];
-
-
+  {
+    path: 'presenca', component: PresencaComponent
+  }, 
+]
 @NgModule({
   declarations: [
     AppComponent,
-    ChamadaComponent,
-    AcompanhamentoAulaComponent,
-    HomeComponent
+    NavComponent,
+    ProfessorListComponent,
+    ProfessorEditComponent,
+    PresencaComponent
   ],
   imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
+    RouterModule.forRoot(routes), BrowserModule, 
+    LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, 
+    MatIconModule, MatListModule, BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

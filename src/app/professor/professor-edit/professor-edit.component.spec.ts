@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChamadaComponent } from './chamada.component';
+import { ProfessorEditComponent } from './professor-edit.component';
 
-describe('ChamadaComponent', () => {
-  let component: ChamadaComponent;
-  let fixture: ComponentFixture<ChamadaComponent>;
+describe('ProfessorEditComponent', () => {
+  let component: ProfessorEditComponent;
+  let fixture: ComponentFixture<ProfessorEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChamadaComponent ]
+      declarations: [ ProfessorEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChamadaComponent);
+    fixture = TestBed.createComponent(ProfessorEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
