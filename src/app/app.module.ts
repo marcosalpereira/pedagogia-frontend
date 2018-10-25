@@ -4,17 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatCardModule, MatSelectModule, MatTabsModule, MatTableModule, MatCheckboxModule, MAT_DATE_LOCALE } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfessorListComponent } from './professor/professor-list/professor-list.component';
 import { ProfessorEditComponent } from './professor/professor-edit/professor-edit.component';
-import { PresencaComponent } from './presenca/presenca.component';
+import { AulaCreateComponent } from './aula/aula-create/aula-create.component';
+import { AulaListComponent } from './aula/aula-list/aula-list.component';
+import { FormsModule } from '@angular/forms';
+
 
 const routes: Routes = [
   {
-    path: 'presenca', component: PresencaComponent
-  }, 
+    path: 'aula/registrar', component: AulaCreateComponent
+  },
 ]
 @NgModule({
   declarations: [
@@ -22,14 +25,20 @@ const routes: Routes = [
     NavComponent,
     ProfessorListComponent,
     ProfessorEditComponent,
-    PresencaComponent
+    AulaCreateComponent,
+    AulaListComponent
   ],
   imports: [
-    RouterModule.forRoot(routes), BrowserModule, 
-    LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, 
-    MatIconModule, MatListModule, BrowserAnimationsModule
+    RouterModule.forRoot(routes), BrowserModule,
+    LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule,
+    MatIconModule, MatListModule, BrowserAnimationsModule, MatDatepickerModule, MatNativeDateModule,
+    MatButtonModule, MatCardModule, MatSelectModule,
+    MatFormFieldModule, MatTabsModule, MatTableModule, MatCheckboxModule,
+    MatInputModule, FormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
