@@ -39,8 +39,14 @@
     </mat-form-field>
 
     <mat-form-field>
+        <mat-select [(value)]="temaSel" placeholder="Escolha o Tema">
+          <mat-option *ngFor="let o of materiaSel?.temas" [value]="o">{{o.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field>
       <mat-select [(value)]="capituloSel" placeholder="Escolha o Capítulo">
-        <mat-option *ngFor="let o of materiaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
+        <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
       </mat-select>
     </mat-form-field>
 

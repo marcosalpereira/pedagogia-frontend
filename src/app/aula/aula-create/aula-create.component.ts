@@ -6,6 +6,7 @@ import { Materia } from 'src/app/model/materia';
 import { Capitulo } from 'src/app/model/capitulo';
 import { MatSnackBar } from '@angular/material';
 import { MATERIAS, TURMAS } from 'src/app/data-mock';
+import { Tema } from 'src/app/model/tema';
 
 @Component({
   selector: 'app-aula-create',
@@ -22,6 +23,7 @@ export class AulaCreateComponent implements OnInit {
   materias: Materia[];
   materiaSel: Materia;
   capituloSel: Capitulo;
+  temaSel: Tema;
 
   displayedColumns: string[] = ['presenca'];
 
