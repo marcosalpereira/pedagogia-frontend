@@ -4,6 +4,8 @@ import { Professor } from 'src/app/model/professor';
 import { Aula } from 'src/app/model/aula';
 import { Materia } from 'src/app/model/materia';
 import { Capitulo } from 'src/app/model/capitulo';
+import { MatSnackBar } from '@angular/material';
+import { MATERIAS, TURMAS } from 'src/app/data-mock';
 
 @Component({
   selector: 'app-aula-create',
@@ -23,38 +25,11 @@ export class AulaCreateComponent implements OnInit {
 
   displayedColumns: string[] = ['presenca'];
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.turmas = [
-      {
-        id: 1,
-        nome: 'N2 - Quarta - Seneca',
-        professores: [
-          { nome: 'Levi' },
-          { nome: 'Plicia' }
-        ],
-        alunos: [
-          { nome: 'Rui Barbosa' },
-          { nome: 'Einstein' }
-        ],
-      },
-      { id: 2, nome: 'Quarta' }];
-
-    this.materias = [
-      {
-        nome: 'ISO', capitulos: [
-          { numero: 1, nome: 'Introdução' },
-          { numero: 2, nome: 'Enigma' }
-        ]
-      },
-      {
-        nome: 'Psicologia', capitulos: [
-          { numero: 1, nome: 'Introdução' },
-          { numero: 2, nome: 'Capítulo2' }
-        ]
-      }
-    ];
+    this.turmas = TURMAS;
+    this.materias = MATERIAS;
   }
 
   onProfessorChanged() {
@@ -67,6 +42,10 @@ export class AulaCreateComponent implements OnInit {
         }),
       observacao: ''
     };
+  }
+
+  onRegistrarClick() {
+    this.snackBar.open('Aula Registrada!', 'Fechar', { duration: 3000 });
   }
 
 }
