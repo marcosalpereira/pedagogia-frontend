@@ -162,7 +162,7 @@ export const MATERIAS: Materia[] = [
             }, {
                 numero: 14, nome: 'Tema XIV', capitulos: [
                     { numero: 1, nome: 'Botânica' },
-                    { numero: 1.1, 'Casos Especiais' },
+                    { numero: 1.1, nome: 'Casos Especiais' },
 
                 ]
             }, {

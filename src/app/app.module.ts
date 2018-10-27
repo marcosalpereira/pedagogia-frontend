@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule,
           MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule,
@@ -18,25 +17,31 @@ import { FormsModule } from '@angular/forms';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import { EntregaMaterialComponent } from './entrega-material/entrega-material.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  {
+    path: 'home', component: HomeComponent
+  },
   {
     path: 'aula/registrar', component: AulaCreateComponent
   },
   {
     path: 'material/entregar', component: EntregaMaterialComponent
   },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     ProfessorListComponent,
     ProfessorEditComponent,
     AulaCreateComponent,
     AulaListComponent,
-    EntregaMaterialComponent
+    EntregaMaterialComponent,
+    HomeComponent
   ],
   imports: [
     RouterModule.forRoot(routes), BrowserModule,
