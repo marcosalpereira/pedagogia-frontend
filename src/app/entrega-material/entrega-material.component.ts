@@ -8,6 +8,7 @@ import { Tema } from '../model/tema';
 import { MatSnackBar } from '@angular/material';
 import { TURMAS, MATERIAS } from '../data-mock';
 import { TemaEntregue, Entrega } from '../model/tema-entregue';
+import { MessageService } from '../util/message.service';
 
 @Component({
   selector: 'app-entrega-material',
@@ -26,7 +27,7 @@ export class EntregaMaterialComponent implements OnInit {
 
   displayedColumns: string[] = ['aluno', 'data'];
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private message: MessageService) { }
 
   ngOnInit() {
     this.turmas = TURMAS;
@@ -54,7 +55,7 @@ export class EntregaMaterialComponent implements OnInit {
   }
 
   onRegistrarClick() {
-    this.snackBar.open('Entrega Registrada!', 'Fechar', { duration: 3000 });
+    this.message.show('Entrega Registrada!');
   }
 
 }

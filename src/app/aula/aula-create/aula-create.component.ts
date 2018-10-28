@@ -7,6 +7,7 @@ import { Capitulo } from 'src/app/model/capitulo';
 import { MatSnackBar } from '@angular/material';
 import { MATERIAS, TURMAS } from 'src/app/data-mock';
 import { Tema } from 'src/app/model/tema';
+import { MessageService } from 'src/app/util/message.service';
 
 @Component({
   selector: 'app-aula-create',
@@ -27,7 +28,7 @@ export class AulaCreateComponent implements OnInit {
 
   displayedColumns: string[] = ['presenca'];
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private message: MessageService) { }
 
   ngOnInit() {
     this.turmas = TURMAS;
@@ -47,7 +48,7 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onRegistrarClick() {
-    this.snackBar.open('Aula Registrada!', 'Fechar', { duration: 3000 });
+    this.message.show('Aula Registrada!');
   }
 
 }
