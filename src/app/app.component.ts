@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,23 @@ export class AppComponent implements OnInit {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }  
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService
+    ) { }  
 
   ngOnInit() {
     firebase.initializeApp(environment.firebase);
   }
+
+  logout() {
+    this.authService.logout();
+    return false;
+  }
+
+  isAutenticado(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+
 }

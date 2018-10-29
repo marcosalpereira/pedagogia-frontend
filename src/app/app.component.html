@@ -3,9 +3,11 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/login">Entrar</a>
-      <a mat-list-item routerLink="/aula/registrar">Registrar Aula</a>
-      <a mat-list-item routerLink="/material/entregar">Entregar Material</a>
+      <a *ngIf="!isAutenticado()" mat-list-item routerLink="/login">Entrar</a>
+      <a *ngIf="isAutenticado()"  mat-list-item (click)="logout()">Sair</a>
+      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/aula/registrar">Registrar Aula</a>
+      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/material/entregar">Entregar Material</a>
+      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/graficos">Gráficos</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

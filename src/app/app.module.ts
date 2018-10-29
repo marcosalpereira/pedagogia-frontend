@@ -23,13 +23,16 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 
 import { ChartModule } from 'angular-highcharts';
+import { GraficosComponent } from './graficos/graficos.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'aula/registrar', component: AulaCreateComponent },
-  { path: 'material/entregar', component: EntregaMaterialComponent },
-  { path: 'login', component: LoginComponent}
+  { path: 'aula/registrar', component: AulaCreateComponent, canActivate: [AuthGuard] },
+  { path: 'material/entregar', component: EntregaMaterialComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent},
+  { path: 'graficos', component: GraficosComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -41,7 +44,8 @@ const routes: Routes = [
     AulaListComponent,
     EntregaMaterialComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    GraficosComponent
   ],
   imports: [
     RouterModule.forRoot(routes), BrowserModule,
