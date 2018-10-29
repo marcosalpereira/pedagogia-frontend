@@ -22,6 +22,8 @@ import { EntregaMaterialComponent } from './entrega-material/entrega-material.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 
+import { ChartModule } from 'angular-highcharts';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -47,7 +49,8 @@ const routes: Routes = [
     MatIconModule, MatListModule, BrowserAnimationsModule, MatDatepickerModule, MatNativeDateModule,
     MatButtonModule, MatCardModule, MatSelectModule,
     MatFormFieldModule, MatTabsModule, MatTableModule, MatCheckboxModule,
-    MatInputModule, FormsModule, MatExpansionModule, MatSnackBarModule
+    MatInputModule, FormsModule, MatExpansionModule, MatSnackBarModule,
+    ChartModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt' }

@@ -1,29 +1,28 @@
 <mat-card class="mat-elevation-z4">
 
   <mat-card-header>
-
     <mat-card-title>Login</mat-card-title>
-
   </mat-card-header>
 
   <mat-card-content>
     <form #form="ngForm" (ngSubmit)="onLogin(email.value, senha.value)">
 
       <mat-form-field>
-        <input #email="ngModel" matInput email required type="email" name="email" ngModel placeholder="email">
-        <mat-error *ngIf="email.hasError('required')">required</mat-error>
+        <input #email="ngModel" matInput email required type="email"
+            name="email" ngModel placeholder="email">
+        <mat-error *ngIf="email.hasError('required')">Obrigatório</mat-error>
         <mat-error *ngIf="email.hasError('email')">Email inválido</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input #senha="ngModel" matInput required type="password" name="senha" ngModel placeholder="Senha">
-        <mat-error *ngIf="senha.hasError('required')">required</mat-error>
+        <input #senha="ngModel" matInput required type="password"
+            name="senha" ngModel placeholder="Senha">
+        <mat-error *ngIf="senha.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
       <mat-card-actions>
-
-        <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Login</button>
-
+        <button type="submit" [disabled]="form.invalid"
+            mat-raised-button color="primary">Login</button>
       </mat-card-actions>
     </form>
 
