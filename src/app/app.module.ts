@@ -25,6 +25,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ChartModule } from 'angular-highcharts';
 import { GraficosComponent } from './graficos/graficos.component';
 import { AuthGuard } from './auth/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,7 +55,7 @@ const routes: Routes = [
     MatButtonModule, MatCardModule, MatSelectModule,
     MatFormFieldModule, MatTabsModule, MatTableModule, MatCheckboxModule,
     MatInputModule, FormsModule, MatExpansionModule, MatSnackBarModule,
-    ChartModule
+    ChartModule, HttpClientModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt' }
