@@ -1,15 +1,12 @@
 import { Aluno } from "./aluno";
 import { Tema } from "./tema";
 import { Turma } from "./turma";
+import { BaseModel } from "./base-model";
 
-export interface TemaEntregue {
+export interface EntregaTema extends BaseModel {
     turma: Turma;
     tema: Tema;
-    entregas: Entrega[];
-}
-
-export interface Entrega {
-    entregue: boolean;
     aluno: Aluno;
+    entregue: boolean;
     data?: Date;
 }

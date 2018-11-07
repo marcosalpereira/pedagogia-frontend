@@ -7,8 +7,9 @@ import { Capitulo } from '../model/capitulo';
 import { Tema } from '../model/tema';
 import { MatSnackBar } from '@angular/material';
 import { TURMAS, MATERIAS } from '../data-mock';
-import { TemaEntregue, Entrega } from '../model/tema-entregue';
+import { EntregaTema } from '../model/entrega-tema';
 import { MessageService } from '../util/message.service';
+import { DadosService } from '../dados.service';
 
 @Component({
   selector: 'app-entrega-material',
@@ -19,7 +20,7 @@ export class EntregaMaterialComponent implements OnInit {
 
   turmas: Turma[];
   turmaSel: Turma;
-  temaEntregue: TemaEntregue;
+  entregasTema: EntregaTema[];
   data = new Date();
   materias: Materia[];
   materiaSel: Materia;
@@ -27,35 +28,52 @@ export class EntregaMaterialComponent implements OnInit {
 
   displayedColumns: string[] = ['aluno', 'data'];
 
-  constructor(private message: MessageService) { }
+  constructor(
+    private message: MessageService,
+    private dadosService: DadosService) { }
 
   ngOnInit() {
-    this.turmas = TURMAS;
-    this.materias = MATERIAS;
+    this.dadosService.findTurmas(this.data)
+      .subscribe(turmas => this.turmas = turmas);
+
+    this.dadosService.findMaterias()
+      .subscribe(materias => this.materias = materias);
+    
   }
 
-  onChangeEntregue(entrega: Entrega) {
+  onChangeEntregue(entrega: EntregaTema) {
     if (entrega.entregue) {
       entrega.data = new Date();
     } else {
       entrega.data = undefined;
     }
-    this.temaEntregue.entregas = Object.assign([], this.temaEntregue.entregas);
+    this.entregasTema = Object.assign([], this.entregasTema);
   }
 
   onTemaChanged() {
-    this.temaEntregue = {
-      turma: this.turmaSel,
-      tema: this.temaSel,
-      entregas: this.turmaSel.alunos.map(
-        aluno => {
-          return { data: undefined, aluno: aluno, entregue: false };
-        }),
-    };
+    this.dadosService.findEntregas(this.turmaSel, this.temaSel)
+      .subscribe(entregas => { 
+        this.entregasTema = entregas;
+        this.turmaSel.alunos.forEach(aluno => {
+          const index = this.entregasTema
+              .findIndex(entrega => entrega.aluno.id === aluno.id);
+          if (index === -1) {
+            this.entregasTema.push( {
+              turma: this.turmaSel, 
+              tema: this.temaSel, 
+              aluno, 
+              entregue: false});
+          }
+        })
+      });
   }
 
   onRegistrarClick() {
-    this.message.show('Entrega Registrada!');
+    this.dadosService.registrarEntregaTema(this.entregasTema)
+      .subscribe(
+        () => this.message.show('Entrega Registrada!'),
+        error => this.message.show(error)
+      );
   }
 
 }
