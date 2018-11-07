@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { MessageService } from '../util/message.service';
+import { Usuario } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { MessageService } from '../util/message.service';
 export class AuthService {
 
   private token: string;
+  usuarioLogado: Usuario;
 
   constructor(
     private router: Router,
@@ -21,15 +22,16 @@ export class AuthService {
         response => {
           this.router.navigate(['/']);
           firebase.auth().currentUser.getIdToken()
-            .then(
-              (token: string) => this.token = token
-            );
-          this.message.show("Login realizado com sucesso!")
+            .then(token => this.token = token);
+          this.message.show('Login realizado com sucesso!');
+          this.usuarioLogado = {
+            id: 1, nome: 'foo', sede: { id: 1, nome: 'foo' }, papeis: []
+          };
         }
       )
-      .catch( () => 
-        this.message.show("Falha na autenticacão!")
-      )
+      .catch( () =>
+        this.message.show('Falha na autenticacão!')
+      );
   }
 
   logout() {

@@ -37,11 +37,12 @@ export class AulaCreateComponent implements OnInit {
 
   onProfessorChanged() {
     this.aula = {
+      turma: this.turmaSel,
       data: this.data,
       professor: this.professorSel,
       presencas: this.turmaSel.alunos.map(
         aluno => {
-          return { presente: false, aluno: aluno };
+          return { aula: undefined, presente: false, aluno: aluno };
         }),
       observacao: ''
     };

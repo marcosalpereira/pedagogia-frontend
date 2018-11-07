@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../model/turma';
-import { Professor } from '../model/professor';
-import { Aula } from '../model/aula';
 import { Materia } from '../model/materia';
-import { Capitulo } from '../model/capitulo';
 import { Tema } from '../model/tema';
-import { MatSnackBar } from '@angular/material';
-import { TURMAS, MATERIAS } from '../data-mock';
 import { EntregaTema } from '../model/entrega-tema';
 import { MessageService } from '../util/message.service';
 import { DadosService } from '../dados.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-entrega-material',
@@ -30,15 +26,16 @@ export class EntregaMaterialComponent implements OnInit {
 
   constructor(
     private message: MessageService,
-    private dadosService: DadosService) { }
+    private dadosService: DadosService,
+    private auth: AuthService) { }
 
   ngOnInit() {
-    this.dadosService.findTurmas(this.data)
+    this.dadosService.findTurmas(this.data, this.auth.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
 
     this.dadosService.findMaterias()
       .subscribe(materias => this.materias = materias);
-    
+
   }
 
   onChangeEntregue(entrega: EntregaTema) {
@@ -52,19 +49,19 @@ export class EntregaMaterialComponent implements OnInit {
 
   onTemaChanged() {
     this.dadosService.findEntregas(this.turmaSel, this.temaSel)
-      .subscribe(entregas => { 
+      .subscribe(entregas => {
         this.entregasTema = entregas;
         this.turmaSel.alunos.forEach(aluno => {
           const index = this.entregasTema
               .findIndex(entrega => entrega.aluno.id === aluno.id);
           if (index === -1) {
             this.entregasTema.push( {
-              turma: this.turmaSel, 
-              tema: this.temaSel, 
-              aluno, 
+              turma: this.turmaSel,
+              tema: this.temaSel,
+              aluno,
               entregue: false});
           }
-        })
+        });
       });
   }
 

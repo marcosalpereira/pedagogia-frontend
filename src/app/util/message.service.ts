@@ -8,7 +8,7 @@ export class MessageService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  show(msg: string, action="Fechar", duration=3000) {
+  show(msg: string, action = 'Fechar', duration = 3000) {
     this.snackBar.open(msg, action, { duration });
   }
 }
