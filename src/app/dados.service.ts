@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EntregaTema } from './model/entrega-tema';
 import { Tema } from './model/tema';
-import { Turma, dayOfWeek } from './model/turma';
+import { Turma, dayOfWeek, DAYOFWEEK } from './model/turma';
 import { Materia } from './model/materia';
 import { catchError } from 'rxjs/operators';
 import { ApiErrorHandlerService } from './api-error-handler-service.service';
@@ -28,8 +28,7 @@ export class DadosService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
-  findTurmas(data: Date, sede: Sede): Observable<Turma[]> {
-    const diaSemana = `${dayOfWeek(data)}`;
+  findTurmas(diaSemana: DAYOFWEEK, sede: Sede): Observable<Turma[]> {
     const idSede = `${sede.id}`;
     const params = { diaSemana, idSede };
     return this.http

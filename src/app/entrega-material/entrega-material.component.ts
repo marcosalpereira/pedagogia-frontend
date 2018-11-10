@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma } from '../model/turma';
+import { Turma, DAYOFWEEK, DIAS_SEMANA } from '../model/turma';
 import { Materia } from '../model/materia';
 import { Tema } from '../model/tema';
 import { EntregaTema } from '../model/entrega-tema';
@@ -17,10 +17,12 @@ export class EntregaMaterialComponent implements OnInit {
   turmas: Turma[];
   turmaSel: Turma;
   entregasTema: EntregaTema[];
-  data = new Date();
   materias: Materia[];
   materiaSel: Materia;
   temaSel: Tema;
+  diaSel: DAYOFWEEK;
+  diasSemana = DIAS_SEMANA;
+
 
   displayedColumns: string[] = ['aluno', 'data'];
 
@@ -30,12 +32,13 @@ export class EntregaMaterialComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.dadosService.findTurmas(this.data, this.auth.usuarioLogado.sede)
-      .subscribe(turmas => this.turmas = turmas);
-
     this.dadosService.findMaterias()
       .subscribe(materias => this.materias = materias);
+  }
 
+  onChangeDia() {
+    this.dadosService.findTurmas(this.diaSel, this.auth.usuarioLogado.sede)
+      .subscribe(turmas => this.turmas = turmas);
   }
 
   onChangeEntregue(entrega: EntregaTema) {

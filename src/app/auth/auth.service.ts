@@ -9,8 +9,11 @@ import { Usuario } from '../model/usuario';
 })
 export class AuthService {
 
-  private token: string;
-  usuarioLogado: Usuario;
+  private token: string = 'foo';
+
+  usuarioLogado: Usuario = {
+    id: 1, nome: 'foo', sede: { id: 1, nome: 'foo' }, papeis: []
+  };
 
   constructor(
     private router: Router,
