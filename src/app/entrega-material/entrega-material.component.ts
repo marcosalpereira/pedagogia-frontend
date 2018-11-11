@@ -71,9 +71,15 @@ export class EntregaMaterialComponent implements OnInit {
   onRegistrarClick() {
     this.dadosService.registrarEntregaTema(this.entregasTema)
       .subscribe(
-        () => this.message.show('Entrega Registrada!'),
-        error => this.message.show(error)
-      );
+        (entregas) => {
+          console.log(entregas);
+          this.message.show('Entrega Registrada!');
+          // for (let i = 0; i < entregas.length; i++) {
+          //   this.entregasTema[i].id = entregas[i].id;
+          //   this.entregasTema[i].version = entregas[i].version;
+          // }
+          this.entregasTema = entregas;
+        });
   }
 
 }

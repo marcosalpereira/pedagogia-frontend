@@ -5,7 +5,7 @@ import { EntregaTema } from './model/entrega-tema';
 import { Tema } from './model/tema';
 import { Turma, dayOfWeek, DAYOFWEEK } from './model/turma';
 import { Materia } from './model/materia';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ApiErrorHandlerService } from './api-error-handler-service.service';
 import { Sede } from './model/sede';
 
@@ -25,7 +25,9 @@ export class DadosService {
     const params = { idTurma, idTema };
     return this.http
       .get<EntregaTema[]>(`${SERVER_URL}/entregas-tema`, { params })
-      .pipe(catchError(this.errorHandler.handle()));
+      .pipe(
+        catchError(this.errorHandler.handle())
+      );
   }
 
   findTurmas(diaSemana: DAYOFWEEK, sede: Sede): Observable<Turma[]> {
@@ -42,9 +44,9 @@ export class DadosService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
-  registrarEntregaTema(entregasTema: EntregaTema[]): Observable<number[]> {
+  registrarEntregaTema(entregasTema: EntregaTema[]): Observable<EntregaTema[]> {
     return this.http
-      .post<number[]>(`${SERVER_URL}/entregas-tema`, entregasTema)
+      .post<EntregaTema[]>(`${SERVER_URL}/entregas-tema`, entregasTema)
       .pipe(catchError(this.errorHandler.handle()));
   }
 

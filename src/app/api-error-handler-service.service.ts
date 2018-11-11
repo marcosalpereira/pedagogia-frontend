@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { MessageService } from './util/message.service';
 import { throwError } from 'rxjs';
 
+class Erro {
+  constructor(public tipo: string, public mensagem: string) {}
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +23,8 @@ export class ApiErrorHandlerService {
       }
 
       const erros = this.recuperarErros(requestError);
-      erros.forEach(erro => {
-        this.message.show(erro, undefined, 5000);
+      erros.forEach(e => {
+        this.message.show(e.tipo + ' ' + e.mensagem, undefined, 0);
       });
 
       return throwError(requestError);
@@ -28,7 +32,7 @@ export class ApiErrorHandlerService {
     };
   }
 
-  private recuperarErros(requestError: any): string[] {
+  private recuperarErros(requestError: any): Erro[] {
 
     switch (requestError.status) {
       case 401: return this.unauthorized(requestError);
@@ -40,7 +44,7 @@ export class ApiErrorHandlerService {
   }
 
 
-  private other(requestError: any): string[] {
+  private other(requestError: any): Erro[] {
 
     const errors = [];
     try {
@@ -49,7 +53,7 @@ export class ApiErrorHandlerService {
         if (error.hasOwnProperty(prop) && error[prop] && error[prop].forEach) {
           error[prop].forEach(item => {
             if (item.message) {
-              errors.push('Erro de Validação' + item.message);
+              errors.push(new Erro('Erro de Validação', item.message));
             }
           });
         }
@@ -61,25 +65,25 @@ export class ApiErrorHandlerService {
     }
 
     if (errors.length === 0) {
-      errors.push('Ocorreu um erro inesperado.' +
-        'Por favor, tente novamente mais tarde. Se o erro persistir, contate o suporte do sistema.');
+      errors.push(new Erro('Ocorreu um erro inesperado.',
+          'Por favor, tente novamente mais tarde. Se o erro persistir, contate o suporte do sistema.'));
     }
 
     return errors;
   }
 
-  private unauthorized(requestError: any): string[] {
-    const errors = ['Não Autorizado' +
-      'Você precisa estar logado para executar essa transação.'];
+  private unauthorized(requestError: any): Erro[] {
+    const errors = [new Erro('Não Autorizado',
+      'Você precisa estar logado para executar essa transação.')];
     return errors;
   }
 
-  private forbidden(requestError: any): string[] {
-    return ['Proibido' + 'Você não tem permissão para executar essa transação.'];
+  private forbidden(requestError: any): Erro[] {
+    return [new Erro('Proibido', 'Você não tem permissão para executar essa transação.')];
   }
 
-  private conflict(requestError: any): string[] {
-    return ['Conflito' + 'Esse recurso já foi atualizado por outra transação.'];
+  private conflict(requestError: any): Erro[] {
+    return [new Erro('Conflito', 'Esse recurso já foi atualizado por outra transação.')];
   }
 
 }
