@@ -3,7 +3,7 @@ import { BaseModel } from './base-model';
 import { Aula } from './aula';
 
 export interface Presenca extends BaseModel {
-    aula: Aula;
+    aula?: Aula;
     aluno: Aluno;
     presente: boolean;
 }

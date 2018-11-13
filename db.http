@@ -1,0 +1,68 @@
+
+POST http://localhost:8080/pedagogia/api/alunos
+Content-Type: application/json
+
+{ "nome": "oto", "sede": {"id": 1}}
+
+###
+
+GET http://localhost:8080/pedagogia/api/alunos
+
+###
+
+GET http://localhost:8080/pedagogia/api/alunos/1
+
+###
+
+POST http://localhost:8080/pedagogia/api/turmas
+Content-Type: application/json
+
+{
+    "sede": {"id": 1},
+    "nome": "bar",
+    "professores": [{"id": 1}],
+    "alunos": [{"id": 1}, {"id": 2}],
+    "diaSemana": "WEDNESDAY"
+}
+
+###
+
+GET http://localhost:8080/pedagogia/api/turmas?diaSemana=WEDNESDAY&idSede=1
+
+###
+
+GET http://localhost:8080/pedagogia/api/turmas/1/materias
+
+###
+
+GET http://localhost:8080/pedagogia/api/entregas-tema?idTurma=1&idTema=1
+
+###
+
+POST http://localhost:8080/pedagogia/api/entregas-tema
+Content-Type: application/json
+
+{ "turma": {"id": 12}, "aluno": {"id": 3}, "entregue": true, "data": "2012-04-23T18:25:43.511Z" }
+
+###
+
+GET http://localhost:8080/pedagogia/api/aulas?idTurma=1&idMateria=1&idProfessor=9&data=
+
+###
+
+POST http://localhost:8080/pedagogia/api/aulas
+Content-Type: application/json
+
+{
+    "turma": {"id": 1},
+    "professor": {"id": 9},
+    "materia": {"id": 1},
+    "data": "2012-04-23",
+    "observacao": "obs",
+    "capitulo": {"id": 5},
+    "presencas": [
+        {"aluno": {"id": 3}, "presente": true},
+        {"aluno": {"id": 4}, "presente": true}
+    ]
+}
+

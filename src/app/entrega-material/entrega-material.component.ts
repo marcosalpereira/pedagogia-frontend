@@ -32,8 +32,6 @@ export class EntregaMaterialComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.dadosService.findMaterias()
-      .subscribe(materias => this.materias = materias);
   }
 
   onChangeDia() {
@@ -48,6 +46,11 @@ export class EntregaMaterialComponent implements OnInit {
       entrega.data = undefined;
     }
     this.entregasTema = Object.assign([], this.entregasTema);
+  }
+
+  onChangeTurma() {
+    this.dadosService.findMaterias(this.turmaSel)
+      .subscribe(materias => this.materias = materias);
   }
 
   onTemaChanged() {

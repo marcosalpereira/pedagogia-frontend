@@ -1,23 +1,24 @@
 import { Professor } from './professor';
 import { Aluno } from './aluno';
 import { BaseModel } from './base-model';
+import { Materia } from './materia';
 
 export type DAYOFWEEK = 'SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY';
 
 export interface Turma extends BaseModel {
     nome: string;
-    professores?: Professor[];
+    materias?: Materia[];
     alunos?: Aluno[];
     representant?: Aluno;
     diaSemana: DAYOFWEEK;
 }
 
-export function dayOfWeek(date: Date) {
+export function dayOfWeek(date: Date): DAYOFWEEK {
     return  DIAS_SEMANA[date.getDay()].eng;
 }
 
 export interface DiaSemana {
-    eng: string;
+    eng: DAYOFWEEK;
     pt: string;
 }
 

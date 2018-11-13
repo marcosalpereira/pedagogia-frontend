@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma } from 'src/app/model/turma';
+import { Turma, dayOfWeek, DAYOFWEEK } from 'src/app/model/turma';
 import { Professor } from 'src/app/model/professor';
 import { Aula } from 'src/app/model/aula';
 import { Materia } from 'src/app/model/materia';
@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material';
 import { MATERIAS, TURMAS } from 'src/app/data-mock';
 import { Tema } from 'src/app/model/tema';
 import { MessageService } from 'src/app/util/message.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { DadosService } from 'src/app/dados.service';
 
 @Component({
   selector: 'app-aula-create',
@@ -18,9 +20,8 @@ export class AulaCreateComponent implements OnInit {
 
   turmas: Turma[];
   turmaSel: Turma;
-  professorSel: Professor;
   aula: Aula;
-  data = new Date();
+  data: Date;
   materias: Materia[];
   materiaSel: Materia;
   capituloSel: Capitulo;
@@ -28,28 +29,50 @@ export class AulaCreateComponent implements OnInit {
 
   displayedColumns: string[] = ['presenca'];
 
-  constructor(private message: MessageService) { }
+  constructor(
+    private message: MessageService,
+    private dadosService: DadosService,
+    private auth: AuthService) { }
 
   ngOnInit() {
-    this.turmas = TURMAS;
-    this.materias = MATERIAS;
+    this.data = new Date();
+    this.onChangeData();
   }
 
-  onProfessorChanged() {
-    this.aula = {
-      turma: this.turmaSel,
-      data: this.data,
-      professor: this.professorSel,
-      presencas: this.turmaSel.alunos.map(
-        aluno => {
-          return { aula: undefined, presente: false, aluno: aluno };
-        }),
-      observacao: ''
-    };
+  onChangeTurma() {
+    this.dadosService.findMaterias(this.turmaSel)
+      .subscribe(materias => this.materias = materias);
+  }
+
+  onChangeData() {
+    const dia: DAYOFWEEK = dayOfWeek(this.data);
+    this.dadosService.findTurmas(dia, this.auth.usuarioLogado.sede)
+      .subscribe(turmas => this.turmas = turmas);
+  }
+
+  onChangeMateria() {
+    this.dadosService.findAula(this.turmaSel, this.materiaSel, this.data)
+      .subscribe(
+        aula => this.aula = aula,
+        () => this.aula = {
+          turma: this.turmaSel,
+          data: this.data,
+          presencas: this.turmaSel.alunos.map(
+            aluno => {
+              return { presente: false, aluno: aluno };
+            }),
+          observacao: ''
+        }
+      );
   }
 
   onRegistrarClick() {
-    this.message.show('Aula Registrada!');
+    // this.dadosService.registrarAula(this.aula)
+    //   .subscribe(() => {
+        this.message.show('Aula Registrada!');
+        this.aula = undefined;
+        this.materiaSel = undefined;
+      // });
   }
 
 }

@@ -15,17 +15,23 @@ export class ApiErrorHandlerService {
 
   constructor(private message: MessageService) { }
 
-  handle() {
+  handle(noMsgsFor: number[] = []) {
     return (requestError: any): Observable<any> => {
 
-      if (!environment.production) {
-        console.error('requestError', requestError);
-      }
+      if (noMsgsFor.find(e => e === requestError.status)) {
+        if (!environment.production) {
+          console.log(`Ignored: ${requestError.status}`);
+        }
+      } else {
+        if (!environment.production) {
+          console.error('requestError', requestError);
+        }
 
-      const erros = this.recuperarErros(requestError);
-      erros.forEach(e => {
-        this.message.show(e.tipo + ' ' + e.mensagem, undefined, 0);
-      });
+        const erros = this.recuperarErros(requestError);
+        erros.forEach(e => {
+          this.message.show(e.tipo + ' ' + e.mensagem, undefined, 0);
+        });
+      }
 
       return throwError(requestError);
 

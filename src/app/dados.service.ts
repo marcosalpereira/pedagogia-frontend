@@ -8,6 +8,8 @@ import { Materia } from './model/materia';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiErrorHandlerService } from './api-error-handler-service.service';
 import { Sede } from './model/sede';
+import { Aula } from './model/aula';
+import { Professor } from './model/professor';
 
 const SERVER_URL = 'http://localhost:8080/pedagogia/api';
 
@@ -38,9 +40,9 @@ export class DadosService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
-  findMaterias(): Observable<Materia[]> {
+  findMaterias(turma: Turma): Observable<Materia[]> {
     return this.http
-      .get<Materia[]>(`${SERVER_URL}/materias`)
+      .get<Materia[]>(`${SERVER_URL}/turmas/${turma.id}/materias`)
       .pipe(catchError(this.errorHandler.handle()));
   }
 
@@ -49,5 +51,17 @@ export class DadosService {
       .post<EntregaTema[]>(`${SERVER_URL}/entregas-tema`, entregasTema)
       .pipe(catchError(this.errorHandler.handle()));
   }
+
+  findAula(turma: Turma, materia: Materia, pdata: Date): Observable<Aula> {
+    const idTurma = `${turma.id}`;
+    const idMateria = `${materia.id}`;
+    const data = `${pdata.toISOString()}`;
+    const params = { idTurma, idMateria, data };
+    return this.http
+      .get<Turma[]>(`${SERVER_URL}/aulas`, { params })
+      .pipe(catchError(this.errorHandler.handle([404])));
+
+  }
+
 
 }

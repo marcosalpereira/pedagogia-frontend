@@ -12,7 +12,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select [(value)]="turmaSel" placeholder="Escolha a Turma" required>
+      <mat-select (selectionChange)="onChangeTurma()" [(value)]="turmaSel" placeholder="Escolha a Turma" required>
         <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -24,7 +24,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select (selectionChange)="onTemaChanged()" [(value)]="temaSel" 
+      <mat-select (selectionChange)="onTemaChanged()" [(value)]="temaSel"
           placeholder="Escolha o Tema" required>
         <mat-option *ngFor="let o of materiaSel?.temas" [value]="o">{{o.nome}}</mat-option>
       </mat-select>
@@ -47,7 +47,7 @@
       </ng-container>
       <ng-container matColumnDef="data">
         <th mat-header-cell *matHeaderCellDef>Data</th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element?.data | date : 'dd/MM/yy HH:mm'}}
         </td>
       </ng-container>
