@@ -8,8 +8,8 @@ import { Turma } from './turma';
 export interface Aula extends BaseModel {
     data: Date;
     turma: Turma;
-    materia?: Materia;
+    materia: Materia;
     presencas: Presenca[];
-    capitulo?: Capitulo;
+    capitulo: Capitulo;
     observacao?: string;
 }

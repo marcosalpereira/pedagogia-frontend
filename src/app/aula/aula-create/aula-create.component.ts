@@ -10,6 +10,7 @@ import { Tema } from 'src/app/model/tema';
 import { MessageService } from 'src/app/util/message.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DadosService } from 'src/app/dados.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-aula-create',
@@ -49,14 +50,21 @@ export class AulaCreateComponent implements OnInit {
     this.dadosService.findTurmas(dia, this.auth.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
   }
-
+ 
   onChangeMateria() {
     this.dadosService.findAula(this.turmaSel, this.materiaSel, this.data)
       .subscribe(
-        aula => this.aula = aula,
+        aula => {
+          console.log(aula)
+          this.aula = aula;
+          this.capituloSel = aula.capitulo;
+          this.temaSel = aula.capitulo.tema;
+        },
         () => this.aula = {
           turma: this.turmaSel,
           data: this.data,
+          materia: this.materiaSel,
+          capitulo: this.capituloSel,
           presencas: this.turmaSel.alunos.map(
             aluno => {
               return { presente: false, aluno: aluno };
@@ -66,13 +74,13 @@ export class AulaCreateComponent implements OnInit {
       );
   }
 
-  onRegistrarClick() {
-    // this.dadosService.registrarAula(this.aula)
-    //   .subscribe(() => {
+  onRegistrarClick(form: NgForm) {
+    this.aula.capitulo = this.capituloSel;
+    this.dadosService.registrarAula(this.aula)
+      .subscribe(() => {
         this.message.show('Aula Registrada!');
-        this.aula = undefined;
-        this.materiaSel = undefined;
-      // });
+        form.reset();
+      });
   }
 
 }
