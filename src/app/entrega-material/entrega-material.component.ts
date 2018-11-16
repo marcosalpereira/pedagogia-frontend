@@ -6,6 +6,7 @@ import { EntregaTema } from '../model/entrega-tema';
 import { MessageService } from '../util/message.service';
 import { DadosService } from '../dados.service';
 import { AuthService } from '../auth/auth.service';
+import { Aluno } from '../model/aluno';
 
 @Component({
   selector: 'app-entrega-material',
@@ -22,6 +23,7 @@ export class EntregaMaterialComponent implements OnInit {
   temaSel: Tema;
   diaSel: DAYOFWEEK;
   diasSemana = DIAS_SEMANA;
+  alunos: Aluno[];
 
 
   displayedColumns: string[] = ['aluno', 'data'];
@@ -53,12 +55,15 @@ export class EntregaMaterialComponent implements OnInit {
   onChangeTurma() {
     this.dadosService.findMaterias(this.turmaSel)
       .subscribe(materias => this.materias = materias);
+
+    this.dadosService.findAlunos(this.turmaSel)
+      .subscribe(alunos => this.alunos = alunos);
   }
 
   onTemaChanged() {
-    this.dadosService.findEntregas(this.turmaSel, this.temaSel)
-      .subscribe(entregas => {
-        this.entregasTema = entregas;
+    this.dadosService.findEntregasTema(this.turmaSel, this.temaSel)
+      .subscribe(entregasTema => {
+        this.entregasTema = entregasTema;
         this.turmaSel.alunos.forEach(aluno => {
           const index = this.entregasTema
               .findIndex(entrega => entrega.aluno.id === aluno.id);

@@ -1,5 +1,5 @@
-import { BaseModel } from "./base-model";
-import { Sede } from "./sede";
+import { BaseModel } from './base-model';
+import { Sede } from './sede';
 
 export interface Aluno extends BaseModel {
     nome: string;

@@ -48,10 +48,10 @@ export class AulaCreateComponent implements OnInit {
 
   onChangeTurma() {
     this.dadosService.findMaterias(this.turmaSel)
-      .subscribe(materias => {
-        this.materias = materias;
-        this.professores = this.turmaSel.professores;
-      });
+      .subscribe(materias => this.materias = materias);
+
+    this.dadosService.findProfessores(this.turmaSel)
+      .subscribe(professores => this.professores = professores);
   }
 
   onChangeData() {
@@ -63,7 +63,7 @@ export class AulaCreateComponent implements OnInit {
   modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
 }
- 
+
   onChangeMateria() {
     this.temas = this.materiaSel.temas;
 
@@ -72,7 +72,7 @@ export class AulaCreateComponent implements OnInit {
         aula => {
           console.log('achou aula', aula);
           aula.turma = this.turmaSel;
-          aula.materia = this.materiaSel;      
+          aula.materia = this.materiaSel;
           this.capituloSel = aula.capitulo;
           this.professorSel = aula.professor;
           this.temaSel = aula.capitulo.tema;
@@ -96,7 +96,7 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onRegistrarClick(form: NgForm) {
-    this.aula.data = this.data; 
+    this.aula.data = this.data;
     this.aula.capitulo = this.capituloSel;
     this.aula.professor = this.professorSel;
     this.dadosService.registrarAula(this.aula)

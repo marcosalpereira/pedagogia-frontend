@@ -5,9 +5,14 @@ import { Materia } from './materia';
 
 export type DAYOFWEEK = 'SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY';
 
+export interface Nivel extends BaseModel {
+    numero: number;
+    materias: Materia[];
+}
+
 export interface Turma extends BaseModel {
     nome: string;
-    materias?: Materia[];
+    nivel: Nivel;
     alunos?: Aluno[];
     professores: Professor[];
     representant?: Aluno;

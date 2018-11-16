@@ -1,5 +1,5 @@
-import { BaseModel } from "./base-model";
-import { Tema } from "./tema";
+import { BaseModel } from './base-model';
+import { Tema } from './tema';
 
 export interface Capitulo extends BaseModel {
     tema: Tema;
