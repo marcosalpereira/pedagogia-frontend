@@ -9,6 +9,7 @@ export interface Turma extends BaseModel {
     nome: string;
     materias?: Materia[];
     alunos?: Aluno[];
+    professores: Professor[];
     representant?: Aluno;
     diaSemana: DAYOFWEEK;
 }

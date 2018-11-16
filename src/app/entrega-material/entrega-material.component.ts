@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma, DAYOFWEEK, DIAS_SEMANA } from '../model/turma';
+import { Turma, DAYOFWEEK, DIAS_SEMANA, dayOfWeek } from '../model/turma';
 import { Materia } from '../model/materia';
 import { Tema } from '../model/tema';
 import { EntregaTema } from '../model/entrega-tema';
@@ -32,6 +32,8 @@ export class EntregaMaterialComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
+    this.diaSel = dayOfWeek(new Date());
+    this.onChangeDia();
   }
 
   onChangeDia() {

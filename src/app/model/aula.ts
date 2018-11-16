@@ -11,5 +11,6 @@ export interface Aula extends BaseModel {
     materia: Materia;
     presencas: Presenca[];
     capitulo: Capitulo;
+    professor: Professor;
     observacao?: string;
 }

@@ -9,6 +9,9 @@ import {
   MatFormFieldModule, MatInputModule, MatCardModule, MatSelectModule,
   MatTabsModule, MatTableModule, MatCheckboxModule, MAT_DATE_LOCALE, MatSnackBarModule
 } from '@angular/material';
+
+import {MatGridListModule} from '@angular/material/grid-list';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfessorListComponent } from './professor/professor-list/professor-list.component';
@@ -55,7 +58,7 @@ const routes: Routes = [
     MatButtonModule, MatCardModule, MatSelectModule,
     MatFormFieldModule, MatTabsModule, MatTableModule, MatCheckboxModule,
     MatInputModule, FormsModule, MatExpansionModule, MatSnackBarModule,
-    ChartModule, HttpClientModule
+    ChartModule, HttpClientModule, MatGridListModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt' }
