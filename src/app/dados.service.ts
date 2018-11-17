@@ -85,23 +85,20 @@ export class DadosService {
   }
 
   registrarAula(aula: Aula): Observable<number> {
-    const form: any = {};
-    form.turma = { 'id': aula.turma.id };
-    form.data = aula.data;
-    form.materia = { 'id': aula.materia.id };
-    form.capitulo = { 'id': aula.capitulo.id };
-    form.observacao = aula.observacao;
-    form.presencas = aula.presencas;
-    // form.presencas = aula.presencas.map( p => {
-    //   return {'id': p.id, 'version': p.version, 'aluno': {id: p.aluno.id}, presente: p.presente};
-    // });
-    form.professor = { 'id': aula.professor.id };
-    form.id = aula.id;
-    form.version = aula.version;
+    // const form: any = {};
+    // form.turma = { 'id': aula.turma.id };
+    // form.data = aula.data;
+    // form.materia = { 'id': aula.materia.id };
+    // form.capitulo = { 'id': aula.capitulo.id };
+    // form.observacao = aula.observacao;
+    // form.presencas = aula.presencas;
+    // form.professor = { 'id': aula.professor.id };
+    // form.id = aula.id;
+    // form.version = aula.version;
 
-    console.log('form', form);
+    // console.log('form', form);
     return this.http
-      .post<EntregaTema[]>(`${SERVER_URL}/aulas`, form)
+      .post<EntregaTema[]>(`${SERVER_URL}/aulas`, aula)
       .pipe(catchError(this.errorHandler.handle()));
   }
 

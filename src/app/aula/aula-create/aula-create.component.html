@@ -40,10 +40,10 @@
           <mat-option *ngFor="let o of temas" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
-
+ 
       <mat-form-field>
         <mat-select [compareWith]='modelCompareFn' name="capitulo" [(ngModel)]="capituloSel" placeholder="Escolha o Capítulo" required>
-          <mat-option *ngFor="let o of capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
+          <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 

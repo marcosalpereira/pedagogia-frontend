@@ -11,6 +11,7 @@ import { DadosService } from 'src/app/dados.service';
 import { NgForm } from '@angular/forms';
 import { BaseModel } from 'src/app/model/base-model';
 import { Presenca } from 'src/app/model/presenca';
+import { Aluno } from 'src/app/model/aluno';
 
 @Component({
   selector: 'app-aula-create',
@@ -31,8 +32,7 @@ export class AulaCreateComponent implements OnInit {
   professores: Professor[];
   temas: Tema[];
   capitulos: Capitulo[];
-  presencas: Presenca[];
-
+  alunos: Aluno[];
 
   displayedColumns: string[] = ['presenca'];
 
@@ -52,6 +52,8 @@ export class AulaCreateComponent implements OnInit {
 
     this.dadosService.findProfessores(this.turmaSel)
       .subscribe(professores => this.professores = professores);
+    this.dadosService.findAlunos(this.turmaSel)
+      .subscribe(alunos => this.alunos = alunos);
   }
 
   onChangeData() {
@@ -62,7 +64,7 @@ export class AulaCreateComponent implements OnInit {
 
   modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
-}
+  }
 
   onChangeMateria() {
     this.temas = this.materiaSel.temas;
@@ -71,14 +73,12 @@ export class AulaCreateComponent implements OnInit {
       .subscribe(
         aula => {
           console.log('achou aula', aula);
-          aula.turma = this.turmaSel;
-          aula.materia = this.materiaSel;
+          this.temaSel = this.findTema(aula.capitulo);
+
           this.capituloSel = aula.capitulo;
           this.professorSel = aula.professor;
-          this.temaSel = aula.capitulo.tema;
           this.capitulos = this.temaSel.capitulos;
           this.aula = aula;
-          this.presencas = aula.presencas;
         },
         () => this.aula = {
           turma: this.turmaSel,
@@ -86,13 +86,17 @@ export class AulaCreateComponent implements OnInit {
           materia: this.materiaSel,
           professor: undefined,
           capitulo: undefined,
-          presencas: this.turmaSel.alunos.map(
+          presencas: this.alunos.map(
             aluno => {
               return { presente: false, aluno: aluno };
             }),
           observacao: ''
         }
       );
+  }
+
+  private findTema(capitulo: Capitulo): Tema {
+    return this.materiaSel.temas.find(tema => tema.capitulos.findIndex(cap => cap.id === capitulo.id) > -1);
   }
 
   onRegistrarClick(form: NgForm) {
