@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ApiErrorHandlerService } from './api-error-handler-service.service';
 import { EntregaTema } from './model/entrega-tema';
 import { Tema } from './model/tema';
-import { Turma, dayOfWeek, DAYOFWEEK, Nivel } from './model/turma';
+import { Turma, DAYOFWEEK, Nivel } from './model/turma';
 import { Materia } from './model/materia';
-import { catchError, tap, map } from 'rxjs/operators';
-import { ApiErrorHandlerService } from './api-error-handler-service.service';
 import { Sede } from './model/sede';
 import { Aula } from './model/aula';
 import { Professor } from './model/professor';
 import { Aluno } from './model/aluno';
+import { environment } from 'src/environments/environment';
 
-const SERVER_URL = 'http://localhost:8080/pedagogia/api';
+const SERVER_URL = environment.serverUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class DadosService {
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private errorHandler: ApiErrorHandlerService) { }
 
   findEntregasTema(turma: Turma, tema: Tema): Observable<EntregaTema[]> {

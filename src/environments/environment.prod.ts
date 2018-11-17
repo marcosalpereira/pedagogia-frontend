@@ -4,14 +4,7 @@
 
 export const environment = {
   production: true,
-  firebase: {
-    apiKey: "AIzaSyDyeFxFuegjNQYZqk8bIpHQN7Dj9_-VoH8",
-    authDomain: "na-pedagogia.firebaseapp.com",
-    databaseURL: "https://na-pedagogia.firebaseio.com",
-    projectId: "na-pedagogia",
-    storageBucket: "na-pedagogia.appspot.com",
-    messagingSenderId: "938892886677"
-  }
+  serverUrl: 'http://localhost:8080/pedagogia/api',
 };
 
 /*
