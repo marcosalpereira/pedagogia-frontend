@@ -52,6 +52,7 @@ export class AulaCreateComponent implements OnInit {
 
     this.dadosService.findProfessores(this.turmaSel)
       .subscribe(professores => this.professores = professores);
+
     this.dadosService.findAlunos(this.turmaSel)
       .subscribe(alunos => this.alunos = alunos);
   }
@@ -96,7 +97,9 @@ export class AulaCreateComponent implements OnInit {
   }
 
   private findTema(capitulo: Capitulo): Tema {
-    return this.materiaSel.temas.find(tema => tema.capitulos.findIndex(cap => cap.id === capitulo.id) > -1);
+    return this.materiaSel.temas.find(tema => 
+      tema.capitulos.findIndex(
+        cap => cap.id === capitulo.id) > -1);
   }
 
   onRegistrarClick(form: NgForm) {
@@ -104,10 +107,9 @@ export class AulaCreateComponent implements OnInit {
     this.aula.capitulo = this.capituloSel;
     this.aula.professor = this.professorSel;
     this.dadosService.registrarAula(this.aula)
-      .subscribe(() => {
+      .subscribe(auladb => {
         this.message.show('Aula Registrada!');
-        form.reset();
-        this.aula = undefined;
+        this.aula = auladb;
       });
   }
 

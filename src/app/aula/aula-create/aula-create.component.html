@@ -1,5 +1,5 @@
 <mat-accordion multi="true">
-  <form #form="ngForm" (ngSubmit)="onRegistrarClick(form)">
+  <form #form="ngForm" (ngSubmit)="onRegistrarClick(form)" (reset)="aula = undefined">
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Registrar Aula</mat-panel-title>
@@ -76,6 +76,7 @@
 
       <mat-action-row>
         <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Registrar</button>
+        <button type="reset" mat-raised-button color="warn">Limpar</button>
       </mat-action-row>
     </mat-expansion-panel>
   </form>

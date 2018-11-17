@@ -64,7 +64,7 @@ export class EntregaMaterialComponent implements OnInit {
     this.dadosService.findEntregasTema(this.turmaSel, this.temaSel)
       .subscribe(entregasTema => {
         this.entregasTema = entregasTema;
-        this.turmaSel.alunos.forEach(aluno => {
+        this.alunos.forEach(aluno => {
           const index = this.entregasTema
               .findIndex(entrega => entrega.aluno.id === aluno.id);
           if (index === -1) {
@@ -84,10 +84,6 @@ export class EntregaMaterialComponent implements OnInit {
         (entregas) => {
           console.log(entregas);
           this.message.show('Entrega Registrada!');
-          // for (let i = 0; i < entregas.length; i++) {
-          //   this.entregasTema[i].id = entregas[i].id;
-          //   this.entregasTema[i].version = entregas[i].version;
-          // }
           this.entregasTema = entregas;
         });
   }

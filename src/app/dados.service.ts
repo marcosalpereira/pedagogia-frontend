@@ -84,21 +84,9 @@ export class DadosService {
 
   }
 
-  registrarAula(aula: Aula): Observable<number> {
-    // const form: any = {};
-    // form.turma = { 'id': aula.turma.id };
-    // form.data = aula.data;
-    // form.materia = { 'id': aula.materia.id };
-    // form.capitulo = { 'id': aula.capitulo.id };
-    // form.observacao = aula.observacao;
-    // form.presencas = aula.presencas;
-    // form.professor = { 'id': aula.professor.id };
-    // form.id = aula.id;
-    // form.version = aula.version;
-
-    // console.log('form', form);
+  registrarAula(aula: Aula): Observable<Aula> {
     return this.http
-      .post<EntregaTema[]>(`${SERVER_URL}/aulas`, aula)
+      .post<Aula>(`${SERVER_URL}/aulas`, aula)
       .pipe(catchError(this.errorHandler.handle()));
   }
 
