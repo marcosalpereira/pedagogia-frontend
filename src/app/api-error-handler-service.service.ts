@@ -23,10 +23,6 @@ export class ApiErrorHandlerService {
           console.log(`Ignored: ${requestError.status}`);
         }
       } else {
-        if (!environment.production) {
-          console.error('requestError', requestError);
-        }
-
         const erros = this.recuperarErros(requestError);
         erros.forEach(e => {
           this.message.show(e.tipo + ' ' + e.mensagem, undefined, 0);

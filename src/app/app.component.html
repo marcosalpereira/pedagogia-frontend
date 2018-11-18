@@ -3,20 +3,29 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a *ngIf="!isAutenticado()" mat-list-item routerLink="/login">Entrar</a>
-      <a *ngIf="isAutenticado()"  mat-list-item (click)="logout()">Sair</a>
-      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/aula/registrar">Registrar Aula</a>
-      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/material/entregar">Entregar Material</a>
-      <a *ngIf="isAutenticado()"  mat-list-item routerLink="/graficos">Gráficos</a>
+      <ng-container *ngIf="usuarioLogado">
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/aula/registrar">Registrar Aula</a>
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/material/entregar">Entregar Material</a>
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/graficos">Gráficos</a>
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" (click)="logout()">Sair</a>
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>Pedagogia</span>
-
+      <mat-toolbar-row>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>Pedagogia</span>
+        <span class="fill-remaining-space"></span>
+        <span *ngIf="usuarioLogado">
+          {{usuarioLogado.nome}}
+        </span>
+        <button *ngIf="!usuarioLogado" title="Entrar no sistema" routerLink="/login" mat-icon-button>
+          <mat-icon aria-label="Entrar no sistema">account_circle</mat-icon>
+        </button>
+      </mat-toolbar-row>
     </mat-toolbar>
     <mat-card>
       <router-outlet></router-outlet>

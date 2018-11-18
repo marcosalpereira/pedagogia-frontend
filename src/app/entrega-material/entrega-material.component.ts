@@ -7,6 +7,7 @@ import { MessageService } from '../util/message.service';
 import { DadosService } from '../dados.service';
 import { AuthService } from '../auth/auth.service';
 import { Aluno } from '../model/aluno';
+import { Usuario } from '../model/usuario';
 
 @Component({
   selector: 'app-entrega-material',
@@ -27,19 +28,25 @@ export class EntregaMaterialComponent implements OnInit {
 
 
   displayedColumns: string[] = ['aluno', 'data'];
+  usuarioLogado: Usuario;
 
   constructor(
     private message: MessageService,
     private dadosService: DadosService,
-    private auth: AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
-    this.diaSel = dayOfWeek(new Date());
-    this.onChangeDia();
+    this.authService.usuarioLogado.subscribe(
+      usuario => {
+        this.usuarioLogado = usuario;
+        this.diaSel = dayOfWeek(new Date());
+        this.onChangeDia();
+      }
+    )
   }
 
   onChangeDia() {
-    this.dadosService.findTurmas(this.diaSel, this.auth.usuarioLogado.sede)
+    this.dadosService.findTurmas(this.diaSel, this.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
   }
 
@@ -66,13 +73,14 @@ export class EntregaMaterialComponent implements OnInit {
         this.entregasTema = entregasTema;
         this.alunos.forEach(aluno => {
           const index = this.entregasTema
-              .findIndex(entrega => entrega.aluno.id === aluno.id);
+            .findIndex(entrega => entrega.aluno.id === aluno.id);
           if (index === -1) {
-            this.entregasTema.push( {
+            this.entregasTema.push({
               turma: this.turmaSel,
               tema: this.temaSel,
               aluno,
-              entregue: false});
+              entregue: false
+            });
           }
         });
       });

@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 import { BaseModel } from 'src/app/model/base-model';
 import { Presenca } from 'src/app/model/presenca';
 import { Aluno } from 'src/app/model/aluno';
+import { Usuario } from 'src/app/model/usuario';
 
 @Component({
   selector: 'app-aula-create',
@@ -35,15 +36,21 @@ export class AulaCreateComponent implements OnInit {
   alunos: Aluno[];
 
   displayedColumns: string[] = ['presenca'];
+  usuarioLogado: Usuario;
 
   constructor(
     private message: MessageService,
     private dadosService: DadosService,
-    private auth: AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
-    this.data = new Date();
-    this.onChangeData();
+    this.authService.usuarioLogado.subscribe(
+      usuario => {
+        this.usuarioLogado = usuario;
+        this.data = new Date();
+        this.onChangeData();
+      }
+    )
   }
 
   onChangeTurma() {
@@ -59,7 +66,7 @@ export class AulaCreateComponent implements OnInit {
 
   onChangeData() {
     const dia: DAYOFWEEK = dayOfWeek(this.data);
-    this.dadosService.findTurmas(dia, this.auth.usuarioLogado.sede)
+    this.dadosService.findTurmas(dia, this.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
   }
 
