@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -29,10 +30,12 @@ import { ChartModule } from 'angular-highcharts';
 import { GraficosComponent } from './graficos/graficos.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AppendTokenInterceptor } from './auth/append-token.interceptor';
+import { HandleNotLoggedInInterceptor } from './auth/handle-not-logged-in.interceptor';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'aula/registrar', component: AulaCreateComponent, canActivate: [AuthGuard] },
   { path: 'material/entregar', component: EntregaMaterialComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
@@ -61,7 +64,17 @@ const routes: Routes = [
     ChartModule, HttpClientModule, MatGridListModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pt' }
+    { provide: MAT_DATE_LOCALE, useValue: 'pt' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppendTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HandleNotLoggedInInterceptor,
+      multi: true
+    },        
   ],
   bootstrap: [AppComponent]
 })

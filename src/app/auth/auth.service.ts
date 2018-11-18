@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ const SERVER_URL = environment.serverUrl;
 })
 export class AuthService {
 
-  private token: string;
+  token: string;
 
   usuarioLogado: Usuario;
   //  = {
@@ -29,25 +29,27 @@ export class AuthService {
     private http: HttpClient,
     private message: MessageService,
     private errorHandler: ApiErrorHandlerService) {
-    this.loadToken();
+    // this.loadToken();
   }
 
   login(nome: string, senha: string) {
     const form = { nome, senha };
-    return this.http
-      .post<string>(`${SERVER_URL}/login`, form)
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+
+    this.http
+      .post(`${SERVER_URL}/login`, form, { headers, responseType: 'text'})
       .pipe(catchError(this.errorHandler.handle()))
       .subscribe(token => {
-        this.storeToken(token);
         this.message.show('Login realizado com sucesso!');
-        this.router.navigate(['/']);
+        this.storeToken(token);
+        this.router.navigate(['/home']);
       })
   }
 
   public storeToken(token: any) {
     this.token = token;
-    if (token && !this.isTokenExpired(token)) {
-      sessionStorage.put('token', token);
+    if (token) {
+      sessionStorage.setItem('token', token);
     } else {
       this.token = null;
       sessionStorage.removeItem('token');
@@ -55,7 +57,7 @@ export class AuthService {
   }
 
   private isTokenExpired(token: string): boolean {
-    return new Date().getTime() > this.getDecodedAccessToken(token).exp;
+    return !token || new Date().getTime() > this.getDecodedAccessToken(token).exp;
   }
 
   private getDecodedAccessToken(token: string): any {
@@ -68,7 +70,7 @@ export class AuthService {
   }
 
   private loadToken() {
-    this.token = sessionStorage.get('token');
+    this.token = sessionStorage.getItem('token');
   }
 
   private clearToken() {
@@ -81,7 +83,8 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.token != null;
+    this.loadToken();
+    return !this.isTokenExpired(this.token);
   }
 
 }
