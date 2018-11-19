@@ -9,7 +9,7 @@ import { ApiErrorHandlerService } from '../api-error-handler-service.service';
 import { environment } from 'src/environments/environment';
 import { MessageService } from '../util/message.service';
 
-import * as jwt_decode from "jwt-decode";
+import * as jwt_decode from 'jwt-decode';
 import { LogService } from '../log.service';
 
 interface TokenPayload {
@@ -34,7 +34,7 @@ export class AuthService {
     private http: HttpClient,
     private errorHandler: ApiErrorHandlerService,
     private log: LogService) {
-      
+
   }
 
   get usuarioLogado(): Observable<Usuario> {
@@ -64,17 +64,18 @@ export class AuthService {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
     this.http
-      .post(`${SERVER_URL}/login`, form, { headers, responseType: 'text'})
+      .post(`${SERVER_URL}/login`, form, {observe: 'response'})
       .pipe(catchError(this.errorHandler.handle()))
-      .subscribe((token: string) => {
+      .subscribe(response => {
         this.log.debug('Login realizado com sucesso!');
+        const token = response.headers.get('Authorization');
         this.storeToken(token.substring('BEARER '.length));
         this.carregarUsuarioLogado();
         this.router.navigate(['/']);
-      })
+      });
   }
 
-  public storeToken(token: any) {
+  public storeToken(token: string) {
     this.token = token;
     this.tokenPayload = this.getDecodedAccessToken(token);
     if (token && !this.isTokenExpired()) {

@@ -10,7 +10,7 @@ export class LogService {
 
   debug(message?: any, ...optionalParams: any[]) {
     if (!environment.production) {
-      if (optionalParams) {
+      if (optionalParams && optionalParams.length) {
         console.log(message, optionalParams);
       } else {
         console.log(message);
