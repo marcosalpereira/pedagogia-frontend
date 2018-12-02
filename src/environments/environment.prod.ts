@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  serverUrl: 'http://localhost:8080/pedagogia/api',
+  serverUrl: 'https://72.14.188.252:8443/pedagogia/api',
 };
 
 /*
