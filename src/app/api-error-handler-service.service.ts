@@ -17,6 +17,9 @@ export class ApiErrorHandlerService {
 
   handle(noMsgsFor: number[] = []) {
     return (requestError: any): Observable<any> => {
+      if (!environment.production) {
+        console.log('Erro:', requestError);
+      }
 
       if (noMsgsFor.find(e => e === requestError.status)) {
         if (!environment.production) {

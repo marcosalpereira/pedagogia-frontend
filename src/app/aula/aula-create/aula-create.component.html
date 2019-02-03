@@ -40,16 +40,10 @@
           <mat-option *ngFor="let o of temas" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
- 
+
       <mat-form-field>
         <mat-select [compareWith]='modelCompareFn' name="capitulo" [(ngModel)]="capituloSel" placeholder="Escolha o Capítulo" required>
           <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field> 
-        <mat-select [compareWith]='modelCompareFn' name="professor" [(ngModel)]="professorSel" placeholder="Escolha o Professor" required>
-          <mat-option *ngFor="let o of professores" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -62,7 +56,7 @@
         <ng-container matColumnDef="presenca">
           <th mat-header-cell *matHeaderCellDef>Alunos Presentes</th>
           <td mat-cell *matCellDef="let element">
-              <mat-checkbox 
+              <mat-checkbox
                   (click)="$event.stopPropagation()"
                   (change)="$event ? element.presente = !element.presente : null"
                   [checked]="element.presente">{{element.aluno.nome}}

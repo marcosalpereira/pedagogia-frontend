@@ -42,7 +42,12 @@
       <ng-container matColumnDef="aluno">
         <th mat-header-cell *matHeaderCellDef>Aluno</th>
         <td mat-cell *matCellDef="let element">
-          <mat-checkbox (change)="onChangeEntregue(element)" [(ngModel)]="element.entregue">{{element.aluno.nome}}</mat-checkbox>
+          <mat-checkbox (change)="onChangeEntregue(element)"
+              [(ngModel)]="element.entregue">
+              <span style="white-space: normal">
+                {{element.aluno.nome}}
+              </span>
+          </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="data">

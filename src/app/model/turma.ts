@@ -6,7 +6,7 @@ import { Materia } from './materia';
 export type DAYOFWEEK = 'SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY';
 
 export interface Nivel extends BaseModel {
-    numero: number;
+    codigo: string;
     materias: Materia[];
 }
 

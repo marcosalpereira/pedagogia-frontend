@@ -1,4 +1,3 @@
-import { Professor } from './professor';
 import { Presenca } from './presenca';
 import { Materia } from './materia';
 import { Capitulo } from './capitulo';
@@ -11,6 +10,5 @@ export interface Aula extends BaseModel {
     materia: Materia;
     presencas: Presenca[];
     capitulo: Capitulo;
-    professor: Professor;
     observacao?: string;
 }

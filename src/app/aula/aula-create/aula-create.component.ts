@@ -29,8 +29,6 @@ export class AulaCreateComponent implements OnInit {
   materiaSel: Materia;
   capituloSel: Capitulo;
   temaSel: Tema;
-  professorSel: Professor;
-  professores: Professor[];
   temas: Tema[];
   capitulos: Capitulo[];
   alunos: Aluno[];
@@ -46,19 +44,18 @@ export class AulaCreateComponent implements OnInit {
   ngOnInit() {
     this.authService.usuarioLogado.subscribe(
       usuario => {
-        this.usuarioLogado = usuario;
-        this.data = new Date();
-        this.onChangeData();
+        if (usuario) {
+          this.usuarioLogado = usuario;
+          this.data = new Date();
+          this.onChangeData();
+        }
       }
-    )
+    );
   }
 
   onChangeTurma() {
     this.dadosService.findMaterias(this.turmaSel)
       .subscribe(materias => this.materias = materias);
-
-    this.dadosService.findProfessores(this.turmaSel)
-      .subscribe(professores => this.professores = professores);
 
     this.dadosService.findAlunos(this.turmaSel)
       .subscribe(alunos => this.alunos = alunos);
@@ -84,7 +81,6 @@ export class AulaCreateComponent implements OnInit {
           this.temaSel = this.findTema(aula.capitulo);
 
           this.capituloSel = aula.capitulo;
-          this.professorSel = aula.professor;
           this.capitulos = this.temaSel.capitulos;
           this.aula = aula;
         },
@@ -92,7 +88,6 @@ export class AulaCreateComponent implements OnInit {
           turma: this.turmaSel,
           data: this.data,
           materia: this.materiaSel,
-          professor: undefined,
           capitulo: undefined,
           presencas: this.alunos.map(
             aluno => {
@@ -104,7 +99,7 @@ export class AulaCreateComponent implements OnInit {
   }
 
   private findTema(capitulo: Capitulo): Tema {
-    return this.materiaSel.temas.find(tema => 
+    return this.materiaSel.temas.find(tema =>
       tema.capitulos.findIndex(
         cap => cap.id === capitulo.id) > -1);
   }
@@ -112,7 +107,6 @@ export class AulaCreateComponent implements OnInit {
   onRegistrarClick(form: NgForm) {
     this.aula.data = this.data;
     this.aula.capitulo = this.capituloSel;
-    this.aula.professor = this.professorSel;
     this.dadosService.registrarAula(this.aula)
       .subscribe(auladb => {
         this.message.show('Aula Registrada!');

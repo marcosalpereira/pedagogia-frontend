@@ -38,11 +38,14 @@ export class EntregaMaterialComponent implements OnInit {
   ngOnInit() {
     this.authService.usuarioLogado.subscribe(
       usuario => {
-        this.usuarioLogado = usuario;
-        this.diaSel = dayOfWeek(new Date());
-        this.onChangeDia();
+        if (usuario) {
+          console.log('usuario', usuario);
+          this.usuarioLogado = usuario;
+          this.diaSel = dayOfWeek(new Date());
+          this.onChangeDia();
+        }
       }
-    )
+    );
   }
 
   onChangeDia() {

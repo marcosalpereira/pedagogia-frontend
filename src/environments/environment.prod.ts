@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  serverUrl: 'https://72.14.188.252:8443/pedagogia/api',
+  serverUrl: 'https://nafortaleza.com.br:8443/pedagogia/api',
 };
 
 /*
