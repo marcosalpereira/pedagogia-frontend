@@ -12,6 +12,7 @@ export interface Nivel extends BaseModel {
 
 export interface Turma extends BaseModel {
     nome: string;
+    sala?: string;
     nivel: Nivel;
     alunos?: Aluno[];
     professores: Professor[];
