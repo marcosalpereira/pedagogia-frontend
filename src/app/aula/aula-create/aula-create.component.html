@@ -14,7 +14,7 @@
 
       <mat-form-field>
         <mat-select name="turma" (selectionChange)="onChangeTurma()" [(ngModel)]="turmaSel" placeholder="Escolha a Turma" required>
-          <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}</mat-option>
+          <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}-{{o.sala}}</mat-option>
         </mat-select>
       </mat-form-field>
 
