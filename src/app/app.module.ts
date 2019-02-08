@@ -55,7 +55,7 @@ const routes: Routes = [
     GraficosComponent
   ],
   imports: [
-    RouterModule.forRoot(routes), BrowserModule,
+    RouterModule.forRoot(routes, {useHash: true}), BrowserModule,
     LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule,
     MatIconModule, MatListModule, BrowserAnimationsModule, MatDatepickerModule, MatNativeDateModule,
     MatButtonModule, MatCardModule, MatSelectModule,
@@ -74,7 +74,7 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: HandleNotLoggedInInterceptor,
       multi: true
-    },        
+    },
   ],
   bootstrap: [AppComponent]
 })
