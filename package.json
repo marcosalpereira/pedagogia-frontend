@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "spring:build": "ng build --prod --base-href=/pedagogia/",
+    "build:spring-inside": "ng build --base-href=/pedagogia/",
+    "build:spring-inside:prod": "ng build --prod --base-href=/pedagogia/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
