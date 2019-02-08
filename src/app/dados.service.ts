@@ -19,10 +19,20 @@ const SERVER_URL = environment.serverUrl;
   providedIn: 'root'
 })
 export class DadosService {
-
   constructor(
     private http: HttpClient,
     private errorHandler: ApiErrorHandlerService) { }
+
+  findLastTemaEntregue(turma: Turma, materia: Materia): Observable<EntregaTema> {
+    const idTurma = `${turma.id}`;
+    const idMateria = `${materia.id}`;
+    const params = { idTurma, idMateria };
+    return this.http
+      .get<EntregaTema>(`${SERVER_URL}/entregas-tema`, { params })
+      .pipe(
+        catchError(this.errorHandler.handle([404]))
+      );
+  }
 
   findEntregasTema(turma: Turma, tema: Tema): Observable<EntregaTema[]> {
     const idTurma = `${turma.id}`;
@@ -37,9 +47,8 @@ export class DadosService {
 
   findMaterias(turma: Turma): Observable<Materia[]> {
     return this.http
-      .get<Nivel>(`${SERVER_URL}/niveis/${turma.nivel.id}`)
+      .get<Materia>(`${SERVER_URL}/turmas/${turma.id}/materias`)
       .pipe(
-        map(nivel => nivel.materias),
         catchError(this.errorHandler.handle())
       );
   }

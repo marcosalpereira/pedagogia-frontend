@@ -70,6 +70,11 @@ export class EntregaMaterialComponent implements OnInit {
       .subscribe(alunos => this.alunos = alunos);
   }
 
+  onMateriaChanged() {
+    this.dadosService.findLastTemaEntregue(this.turmaSel, this.materiaSel)
+      .subscribe(entregaTema => this.temaSel = entregaTema.tema);
+  }
+
   onTemaChanged() {
     this.dadosService.findEntregasTema(this.turmaSel, this.temaSel)
       .subscribe(entregasTema => {
