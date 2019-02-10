@@ -1,5 +1,5 @@
 <mat-accordion multi="true">
-  <form #form="ngForm" (ngSubmit)="onRegistrarClick(form)" (reset)="aula = undefined">
+  <form #form="ngForm" (ngSubmit)="onRegistrarClick()" (reset)="aula = undefined">
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Registrar Aula</mat-panel-title>
@@ -14,7 +14,7 @@
 
       <mat-form-field>
         <mat-select name="turma" (selectionChange)="onChangeTurma()" [(ngModel)]="turmaSel" placeholder="Escolha a Turma" required>
-          <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}-{{o.sala}}</mat-option>
+          <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}&nbsp;{{o.sala}}</mat-option>
         </mat-select>
       </mat-form-field>
 

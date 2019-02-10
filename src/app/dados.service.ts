@@ -23,12 +23,12 @@ export class DadosService {
     private http: HttpClient,
     private errorHandler: ApiErrorHandlerService) { }
 
-  findLastTemaEntregue(turma: Turma, materia: Materia): Observable<EntregaTema> {
+  findLastTemaEntregue(turma: Turma, materia: Materia): Observable<Tema> {
     const idTurma = `${turma.id}`;
     const idMateria = `${materia.id}`;
     const params = { idTurma, idMateria };
     return this.http
-      .get<EntregaTema>(`${SERVER_URL}/entregas-tema`, { params })
+      .get<Tema>(`${SERVER_URL}/entregas-tema/last`, { params })
       .pipe(
         catchError(this.errorHandler.handle([404]))
       );

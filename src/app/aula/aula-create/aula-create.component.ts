@@ -104,7 +104,7 @@ export class AulaCreateComponent implements OnInit {
         cap => cap.id === capitulo.id) > -1);
   }
 
-  onRegistrarClick(form: NgForm) {
+  onRegistrarClick() {
     this.aula.data = this.data;
     this.aula.capitulo = this.capituloSel;
     this.dadosService.registrarAula(this.aula)
