@@ -1,20 +1,27 @@
 
-POST http://localhost:8080/pedagogia/api/alunos
+
+POST https://localhost:8443/pedagogia/api/usuarios/signon
+Content-Type: application/json
+
+{ "nome": "oto", "sede": {"id": 1}}
+
+###
+POST https://localhost:8443/pedagogia/api/alunos
 Content-Type: application/json
 
 { "nome": "oto", "sede": {"id": 1}}
 
 ###
 
-GET http://localhost:8080/pedagogia/api/alunos
+GET https://localhost:8443/pedagogia/api/alunos
 
 ###
 
-GET http://localhost:8080/pedagogia/api/alunos/1
+GET https://localhost:8443/pedagogia/api/alunos/1
 
 ###
 
-POST http://localhost:8080/pedagogia/api/turmas
+POST https://localhost:8443/pedagogia/api/turmas
 Content-Type: application/json
 
 {
@@ -27,30 +34,30 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/pedagogia/api/turmas?diaSemana=WEDNESDAY&idSede=1
+GET https://localhost:8443/pedagogia/api/turmas?diaSemana=WEDNESDAY&idSede=1
 
 ###
 
-GET http://localhost:8080/pedagogia/api/turmas/1/materias
+GET https://localhost:8443/pedagogia/api/turmas/1/materias
 
 ###
 
-GET http://localhost:8080/pedagogia/api/entregas-tema?idTurma=1&idTema=1
+GET https://localhost:8443/pedagogia/api/entregas-tema?idTurma=1&idTema=1
 
 ###
 
-POST http://localhost:8080/pedagogia/api/entregas-tema
+POST https://localhost:8443/pedagogia/api/entregas-tema
 Content-Type: application/json
 
 { "turma": {"id": 12}, "aluno": {"id": 3}, "entregue": true, "data": "2012-04-23T18:25:43.511Z" }
 
 ###
 
-GET http://localhost:8080/pedagogia/api/aulas?idTurma=1&idMateria=1&idProfessor=9&data=
+GET https://localhost:8443/pedagogia/api/aulas?idTurma=1&idMateria=1&idProfessor=9&data=
 
 ###
 
-POST http://localhost:8080/pedagogia/api/aulas
+POST https://localhost:8443/pedagogia/api/aulas
 Content-Type: application/json
 
 {

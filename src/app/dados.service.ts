@@ -69,6 +69,11 @@ export class DadosService {
       );
   }
 
+  findSedes(): Observable<Sede[]> {
+    return this.http
+      .get<Sede[]>(`${SERVER_URL}/sedes`)
+      .pipe(catchError(this.errorHandler.handle()));
+  }
 
   findTurmas(diaSemana: DAYOFWEEK, sede: Sede): Observable<Turma[]> {
     const idSede = `${sede.id}`;

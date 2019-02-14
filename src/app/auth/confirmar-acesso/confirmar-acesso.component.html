@@ -1,0 +1,42 @@
+<mat-accordion multi="true">
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Confirmar Solicitações de Acesso</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <table mat-table [dataSource]="solicitacoes">
+      <ng-container matColumnDef="usuario">
+        <th mat-header-cell *matHeaderCellDef>Usuário</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.usuario.nome}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.usuario.email}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="admin">
+        <th mat-header-cell *matHeaderCellDef>Administrador</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? element.admin = !element.admin : null"
+            [checked]="element.admin">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="confirm">
+        <th mat-header-cell *matHeaderCellDef>Confirmar</th>
+        <td mat-cell>
+          <button mat-raised-button color="primary" (click)="confirmarAcesso(element)">Confirmar</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </mat-expansion-panel>
+
+</mat-accordion>

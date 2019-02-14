@@ -1,0 +1,40 @@
+<mat-card class="mat-elevation-z4">
+
+  <mat-card-header>
+    <mat-card-title>Solicitar Acesso</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form #form="ngForm" (ngSubmit)="onSubmit(sede.value, nome.value, email.value, senha.value)">
+      <mat-form-field>
+        <mat-select #sede="ngModel" name="sede" ngModel
+          placeholder="Escolha a Sede" required>
+          <mat-option *ngFor="let o of sedes" [value]="o">{{o.nome}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #nome="ngModel" matInput required type="text" name="nome" ngModel placeholder="Nome">
+        <mat-error *ngIf="email.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #email="ngModel" matInput email required type="email" name="email" ngModel placeholder="email">
+        <mat-error *ngIf="email.hasError('required')">Obrigatório</mat-error>
+        <mat-error *ngIf="email.hasError('email')">Email inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #senha="ngModel" matInput required [type]="hide ? 'password' : 'text'" name="senha" ngModel
+          placeholder="Senha">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="senha.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Solicitar</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card-content>
+</mat-card>

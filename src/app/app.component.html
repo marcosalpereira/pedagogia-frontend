@@ -9,6 +9,10 @@
         <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/graficos">Gráficos</a>
         <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" (click)="logout()">Sair</a>
       </ng-container>
+      <ng-container *ngIf="!usuarioLogado">
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/signon">Solicitar Acesso</a>
+        <a mat-list-item (click)="drawer.opened = drawer.mode == 'side'" routerLink="/login">Entrar no Sistema</a>
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -22,9 +26,6 @@
         <span *ngIf="usuarioLogado">
           {{usuarioLogado.nome}}
         </span>
-        <button *ngIf="!usuarioLogado" title="Entrar no sistema" routerLink="/login" mat-icon-button>
-          <mat-icon aria-label="Entrar no sistema">account_circle</mat-icon>
-        </button>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-card>

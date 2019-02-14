@@ -110,7 +110,6 @@ export class EntregaMaterialComponent implements OnInit {
     this.dadosService.registrarEntregaTema(this.entregasTema)
       .subscribe(
         (entregas) => {
-          console.log(entregas);
           this.message.show('Entrega Registrada!');
           this.entregasTema = entregas;
         });

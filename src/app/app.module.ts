@@ -32,6 +32,8 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppendTokenInterceptor } from './auth/append-token.interceptor';
 import { HandleNotLoggedInInterceptor } from './auth/handle-not-logged-in.interceptor';
+import { SolicitarAcessoComponent } from './auth/solicitar-acesso/solicitar-acesso.component';
+import { ConfirmarAcessoComponent } from './auth/confirmar-acesso/confirmar-acesso.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'aula/registrar', component: AulaCreateComponent, canActivate: [AuthGuard] },
   { path: 'material/entregar', component: EntregaMaterialComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
+  { path: 'signon', component: SolicitarAcessoComponent},
+  { path: 'signon-confirm', component: ConfirmarAcessoComponent},
   { path: 'graficos', component: GraficosComponent, canActivate: [AuthGuard]}
 ];
 
@@ -52,7 +56,9 @@ const routes: Routes = [
     EntregaMaterialComponent,
     HomeComponent,
     LoginComponent,
-    GraficosComponent
+    GraficosComponent,
+    SolicitarAcessoComponent,
+    ConfirmarAcessoComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}), BrowserModule,

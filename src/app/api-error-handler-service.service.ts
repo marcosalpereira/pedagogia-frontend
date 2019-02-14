@@ -57,8 +57,10 @@ export class ApiErrorHandlerService {
       for (const prop in error) {
         if (error.hasOwnProperty(prop) && error[prop] && error[prop].forEach) {
           error[prop].forEach(item => {
-            if (item.message) {
-              errors.push(new Erro('Erro de Validação', item.message));
+            if (item.message || item.defaultMessage) {
+              const message = item.message || item.defaultMessage;
+              const tipo = item.objectName || 'Erro de Validação!';
+              errors.push(new Erro(tipo, message));
             }
           });
         }

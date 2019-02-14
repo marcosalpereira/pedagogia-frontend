@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -11,6 +11,7 @@ import { MessageService } from '../util/message.service';
 
 import * as jwt_decode from 'jwt-decode';
 import { LogService } from '../log.service';
+import { Sede } from '../model/sede';
 
 interface TokenPayload {
   sub: string;
@@ -30,6 +31,7 @@ export class AuthService {
   private tokenPayload: TokenPayload;
 
   constructor(
+    private message: MessageService,
     private router: Router,
     private http: HttpClient,
     private errorHandler: ApiErrorHandlerService,
@@ -64,15 +66,37 @@ export class AuthService {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
 
     this.http
-      .post(`${SERVER_URL}/login`, form, {observe: 'response'})
-      .pipe(catchError(this.errorHandler.handle()))
+      .post(`${SERVER_URL}/login`, form, { observe: 'response' })
+      .pipe(catchError(this.errorHandler.handle([401, 403])))
       .subscribe(response => {
         this.log.debug('Login realizado com sucesso!');
         const token = response.headers.get('Authorization');
         this.storeToken(token.substring('BEARER '.length));
         this.carregarUsuarioLogado();
         this.router.navigate(['/']);
+      }, err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.message.show('Solicitação ainda pendente', 'Fechar', 0);
+          } else if (err.status === 403) {
+            this.message.show('Falha no Login', 'Fechar', 0);
+          }
+        }
       });
+  }
+
+  solicitarAcesso(sede: Sede, nome: string, email: string, senha: string): Observable<number> {
+    const usuario: Usuario = { sede, nome, email, senha };
+
+    return this.http
+      .post<number>(`${SERVER_URL}/usuarios/signon`, usuario)
+      .pipe(catchError(this.errorHandler.handle()));
+  }
+
+  findAllSolicitacoes(): Observable<Usuario[]> {
+    return this.http
+      .get<Sede[]>(`${SERVER_URL}/usuarios`)
+      .pipe(catchError(this.errorHandler.handle()));
   }
 
   public storeToken(token: string) {
@@ -94,9 +118,8 @@ export class AuthService {
   private getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
-    }
-    catch (Error) {
-      return {sub: undefined, exp: 0};
+    } catch (Error) {
+      return { sub: undefined, exp: 0 };
     }
   }
 
