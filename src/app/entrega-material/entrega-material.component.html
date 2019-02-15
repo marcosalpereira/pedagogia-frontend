@@ -25,7 +25,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select name="tema" [compareWith]='modelCompareFn' (selectionChange)="onTemaChanged()" [(ngModel)]="temaSel"
+      <mat-select name="tema" [compareWith]='Model.compareFn' (selectionChange)="onTemaChanged()" [(ngModel)]="temaSel"
           placeholder="Escolha o Tema" required>
         <mat-option *ngFor="let o of materiaSel?.temas" [value]="o">{{o.nome}}</mat-option>
       </mat-select>

@@ -5,7 +5,13 @@
       <mat-panel-title>Confirmar Solicitações de Acesso</mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="solicitacoes">
+    <mat-card *ngIf="solicitacoes?.length === 0">
+      <mat-card-content class="warn-text">
+          Nenhuma solicitação pendente
+      </mat-card-content>
+    </mat-card>
+
+    <table *ngIf="solicitacoes?.length > 0" mat-table [dataSource]="solicitacoes">
       <ng-container matColumnDef="usuario">
         <th mat-header-cell *matHeaderCellDef>Usuário</th>
         <td mat-cell *matCellDef="let element">
@@ -21,7 +27,7 @@
       <ng-container matColumnDef="perfil">
         <th mat-header-cell *matHeaderCellDef>Perfils</th>
         <td mat-cell *matCellDef="let element">
-          <mat-select class="perfil" [compareWith]='modelCompareFn' placeholder="Perfils" [(ngModel)]="element.perfils" multiple>
+          <mat-select class="perfil" [compareWith]="Model.compareFn" placeholder="Perfils" [(ngModel)]="element.perfils" multiple>
             <mat-option *ngFor="let p of perfils" [value]="p">{{p.nome.substring(5)}}</mat-option>
           </mat-select>
 

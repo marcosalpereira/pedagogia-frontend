@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario, Perfil } from 'src/app/model/usuario';
-import { MessageService } from 'src/app/util/message.service';
-import { DadosService } from 'src/app/dados.service';
 import { AuthService } from '../auth.service';
-import { dayOfWeek } from 'src/app/model/turma';
-import { BaseModel } from 'src/app/model/base-model';
+
+import { ModelUtilService } from 'src/app/util/model-util.service';
 
 @Component({
   selector: 'app-confirmar-acesso',
@@ -19,8 +17,7 @@ export class ConfirmarAcessoComponent implements OnInit {
   usuarioLogado: Usuario;
 
   constructor(
-    private message: MessageService,
-    private dadosService: DadosService,
+    public Model: ModelUtilService,
     private authService: AuthService
   ) {}
 
@@ -35,10 +32,6 @@ export class ConfirmarAcessoComponent implements OnInit {
     this.authService
       .findAllPerfils()
       .subscribe(perfils => (this.perfils = perfils));
-  }
-
-  modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   private carregarSolicitacoes() {

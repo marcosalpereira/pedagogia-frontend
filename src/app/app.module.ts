@@ -8,7 +8,7 @@ import {
   MatToolbarModule, MatButtonModule, MatSidenavModule,
   MatIconModule, MatListModule, MatDatepickerModule, MatNativeDateModule,
   MatFormFieldModule, MatInputModule, MatCardModule, MatSelectModule,
-  MatTabsModule, MatTableModule, MatCheckboxModule, MAT_DATE_LOCALE, MatSnackBarModule
+  MatTabsModule, MatTableModule, MatCheckboxModule, MAT_DATE_LOCALE, MatSnackBarModule, MatChipsModule
 } from '@angular/material';
 
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -34,6 +34,7 @@ import { AppendTokenInterceptor } from './auth/append-token.interceptor';
 import { HandleNotLoggedInInterceptor } from './auth/handle-not-logged-in.interceptor';
 import { SolicitarAcessoComponent } from './auth/solicitar-acesso/solicitar-acesso.component';
 import { ConfirmarAcessoComponent } from './auth/confirmar-acesso/confirmar-acesso.component';
+import { UsuarioComponent } from './auth/usuario/usuario.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'signon', component: SolicitarAcessoComponent},
   { path: 'signon-confirm', component: ConfirmarAcessoComponent},
+  { path: 'usuarios', component: UsuarioComponent},
   { path: 'graficos', component: GraficosComponent, canActivate: [AuthGuard]}
 ];
 
@@ -58,7 +60,8 @@ const routes: Routes = [
     LoginComponent,
     GraficosComponent,
     SolicitarAcessoComponent,
-    ConfirmarAcessoComponent
+    ConfirmarAcessoComponent,
+    UsuarioComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}), BrowserModule,
@@ -67,7 +70,7 @@ const routes: Routes = [
     MatButtonModule, MatCardModule, MatSelectModule,
     MatFormFieldModule, MatTabsModule, MatTableModule, MatCheckboxModule,
     MatInputModule, FormsModule, MatExpansionModule, MatSnackBarModule,
-    ChartModule, HttpClientModule, MatGridListModule
+    ChartModule, HttpClientModule, MatGridListModule, MatChipsModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt' },

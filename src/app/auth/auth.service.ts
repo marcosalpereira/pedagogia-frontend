@@ -108,6 +108,14 @@ export class AuthService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
+  findAllUsuariosEnableds(sede: Sede): any {
+    const params = { idSede: `${sede.id}`, enabled: 'true' };
+
+    return this.http
+      .get<Usuario[]>(`${SERVER_URL}/usuarios`, { params })
+      .pipe(catchError(this.errorHandler.handle()));
+  }
+
   findAllPerfils(): Observable<Perfil[]> {
     return this.http
       .get<Perfil[]>(`${SERVER_URL}/perfils`)

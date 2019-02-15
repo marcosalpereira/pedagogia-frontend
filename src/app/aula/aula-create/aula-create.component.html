@@ -36,13 +36,13 @@
       <p>Conteúdo Dado</p>
 
       <mat-form-field>
-        <mat-select [compareWith]='modelCompareFn' name="tema" [(ngModel)]="temaSel" placeholder="Escolha o Tema" required>
+        <mat-select [compareWith]='Model.compareFn' name="tema" [(ngModel)]="temaSel" placeholder="Escolha o Tema" required>
           <mat-option *ngFor="let o of temas" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select [compareWith]='modelCompareFn' name="capitulo" [(ngModel)]="capituloSel" placeholder="Escolha o Capítulo" required>
+        <mat-select [compareWith]='Model.compareFn' name="capitulo" [(ngModel)]="capituloSel" placeholder="Escolha o Capítulo" required>
           <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>

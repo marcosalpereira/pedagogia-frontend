@@ -13,6 +13,7 @@ import { BaseModel } from 'src/app/model/base-model';
 import { Presenca } from 'src/app/model/presenca';
 import { Aluno } from 'src/app/model/aluno';
 import { Usuario } from 'src/app/model/usuario';
+import { ModelUtilService } from 'src/app/util/model-util.service';
 
 @Component({
   selector: 'app-aula-create',
@@ -37,6 +38,7 @@ export class AulaCreateComponent implements OnInit {
   usuarioLogado: Usuario;
 
   constructor(
+    public Model: ModelUtilService,
     private message: MessageService,
     private dadosService: DadosService,
     private authService: AuthService) { }
@@ -65,10 +67,6 @@ export class AulaCreateComponent implements OnInit {
     const dia: DAYOFWEEK = dayOfWeek(this.data);
     this.dadosService.findTurmas(dia, this.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
-  }
-
-  modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   onChangeMateria() {

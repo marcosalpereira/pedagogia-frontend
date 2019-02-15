@@ -9,6 +9,7 @@ import { AuthService } from '../auth/auth.service';
 import { Aluno } from '../model/aluno';
 import { Usuario } from '../model/usuario';
 import { BaseModel } from '../model/base-model';
+import { ModelUtilService } from '../util/model-util.service';
 
 @Component({
   selector: 'app-entrega-material',
@@ -32,6 +33,7 @@ export class EntregaMaterialComponent implements OnInit {
   usuarioLogado: Usuario;
 
   constructor(
+    public Model: ModelUtilService,
     private message: MessageService,
     private dadosService: DadosService,
     private authService: AuthService) { }
@@ -72,10 +74,6 @@ export class EntregaMaterialComponent implements OnInit {
       .subscribe(alunos => this.alunos = alunos);
 
     this.entregasTema = undefined;
-  }
-
-  modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   onMateriaChanged() {

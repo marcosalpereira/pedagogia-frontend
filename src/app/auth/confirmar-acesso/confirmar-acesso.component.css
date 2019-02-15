@@ -1,3 +1,9 @@
 .perfil {
   min-width: 150px;
 }
+
+
+.warn-text {
+  color: red;
+  font-weight: bold;
+}
