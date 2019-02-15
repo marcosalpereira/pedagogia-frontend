@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Usuario } from '../model/usuario';
+import { Usuario, Perfil } from '../model/usuario';
 import { ApiErrorHandlerService } from '../api-error-handler-service.service';
 import { environment } from 'src/environments/environment';
 import { MessageService } from '../util/message.service';
@@ -93,9 +93,24 @@ export class AuthService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
-  findAllSolicitacoes(): Observable<Usuario[]> {
+  habilitarUsuario(usuario: Usuario) {
     return this.http
-      .get<Sede[]>(`${SERVER_URL}/usuarios`)
+      .post<number>(`${SERVER_URL}/usuarios/enable`, usuario)
+      .pipe(catchError(this.errorHandler.handle()));
+
+  }
+
+  findAllUsuariosDisableds(sede: Sede): Observable<Usuario[]> {
+    const params = { idSede: `${sede.id}`, enabled: 'false' };
+
+    return this.http
+      .get<Usuario[]>(`${SERVER_URL}/usuarios`, { params })
+      .pipe(catchError(this.errorHandler.handle()));
+  }
+
+  findAllPerfils(): Observable<Perfil[]> {
+    return this.http
+      .get<Perfil[]>(`${SERVER_URL}/perfils`)
       .pipe(catchError(this.errorHandler.handle()));
   }
 

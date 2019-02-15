@@ -5,7 +5,11 @@ export interface Usuario extends BaseModel {
     email: string;
     nome: string;
     sede: Sede;
-    perfils?: string[];
+    perfils?: Perfil[];
     senha: string;
     enabled?: boolean;
+}
+
+export interface Perfil extends BaseModel {
+  nome: string;
 }

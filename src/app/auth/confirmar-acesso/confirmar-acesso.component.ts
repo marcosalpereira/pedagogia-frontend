@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/model/usuario';
+import { Usuario, Perfil } from 'src/app/model/usuario';
 import { MessageService } from 'src/app/util/message.service';
 import { DadosService } from 'src/app/dados.service';
 import { AuthService } from '../auth.service';
 import { dayOfWeek } from 'src/app/model/turma';
-
-interface Solicitacao {
-  usuario: Usuario;
-  admin: boolean;
-}
+import { BaseModel } from 'src/app/model/base-model';
 
 @Component({
   selector: 'app-confirmar-acesso',
@@ -16,29 +12,44 @@ interface Solicitacao {
   styleUrls: ['./confirmar-acesso.component.css']
 })
 export class ConfirmarAcessoComponent implements OnInit {
+  solicitacoes: Usuario[];
+  perfils: Perfil[];
 
-  solicitacoes: Solicitacao[];
-
-  displayedColumns: string[] = ['usuario', 'email', 'admin', 'confirm'];
+  displayedColumns: string[] = ['usuario', 'email', 'perfil', 'confirm'];
+  usuarioLogado: Usuario;
 
   constructor(
     private message: MessageService,
     private dadosService: DadosService,
-    private authService: AuthService) { }
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.authService.usuarioLogado.subscribe(
-      usuario => {
-        if (usuario) {
-          this.authService.findAllSolicitacoes(usuario.sede)
-            .subscribe(solicitacoes => this.solicitacoes = solicitacoes);
-        }
+    this.authService.usuarioLogado.subscribe(usuarioLogado => {
+      this.usuarioLogado = usuarioLogado;
+      if (usuarioLogado) {
+        this.carregarSolicitacoes();
       }
-    );
+    });
+
+    this.authService
+      .findAllPerfils()
+      .subscribe(perfils => (this.perfils = perfils));
   }
 
-  confirmarAcesso(solicitacao: Solicitacao) {
-
+  modelCompareFn(c1: BaseModel, c2: BaseModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
+  private carregarSolicitacoes() {
+    this.authService
+      .findAllUsuariosDisableds(this.usuarioLogado.sede)
+      .subscribe(usuarios => (this.solicitacoes = usuarios));
+  }
+
+  confirmarAcesso(usuario: Usuario) {
+    this.authService
+      .habilitarUsuario(usuario)
+      .subscribe(_ => this.carregarSolicitacoes());
+  }
 }
