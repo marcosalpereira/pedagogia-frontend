@@ -21,7 +21,7 @@ export interface Turma extends BaseModel {
 }
 
 export function dayOfWeek(date: Date): DAYOFWEEK {
-    return  DIAS_SEMANA[date.getDay()].eng;
+    return  date ? DIAS_SEMANA[date.getDay()].eng : undefined;
 }
 
 export interface DiaSemana {

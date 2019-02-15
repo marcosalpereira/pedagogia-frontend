@@ -35,6 +35,8 @@ import { HandleNotLoggedInInterceptor } from './auth/handle-not-logged-in.interc
 import { SolicitarAcessoComponent } from './auth/solicitar-acesso/solicitar-acesso.component';
 import { ConfirmarAcessoComponent } from './auth/confirmar-acesso/confirmar-acesso.component';
 import { UsuarioComponent } from './auth/usuario/usuario.component';
+import { TurmaListComponent } from './turma/turma-list/turma-list.component';
+import { TurmaEditComponent } from './turma/turma-edit/turma-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -45,6 +47,8 @@ const routes: Routes = [
   { path: 'signon', component: SolicitarAcessoComponent},
   { path: 'signon-confirm', component: ConfirmarAcessoComponent},
   { path: 'usuarios', component: UsuarioComponent},
+  { path: 'turmas', component: TurmaListComponent},
+  { path: 'turmas/:id', component: TurmaEditComponent},
   { path: 'graficos', component: GraficosComponent, canActivate: [AuthGuard]}
 ];
 
@@ -61,7 +65,9 @@ const routes: Routes = [
     GraficosComponent,
     SolicitarAcessoComponent,
     ConfirmarAcessoComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    TurmaListComponent,
+    TurmaEditComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}), BrowserModule,
