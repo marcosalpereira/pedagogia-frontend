@@ -73,7 +73,7 @@ export class AuthService {
         const token = response.headers.get('Authorization');
         this.storeToken(token.substring('BEARER '.length));
         this.carregarUsuarioLogado();
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       }, err => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
