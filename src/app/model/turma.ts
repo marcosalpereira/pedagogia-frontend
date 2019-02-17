@@ -16,8 +16,9 @@ export interface Turma extends BaseModel {
     nivel: Nivel;
     alunos?: Aluno[];
     professores: Professor[];
-    representant?: Aluno;
+    representante?: Aluno;
     diaSemana: DAYOFWEEK;
+    codigo: string;
 }
 
 export function dayOfWeek(date: Date): DAYOFWEEK {

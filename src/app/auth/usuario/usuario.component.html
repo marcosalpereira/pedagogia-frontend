@@ -22,8 +22,7 @@
         <th mat-header-cell *matHeaderCellDef>Perfils</th>
         <td mat-cell *matCellDef="let element">
           <mat-chip-list>
-            <mat-chip *ngFor="let p of element.perfils" selected
-                [color]="p.nome === 'ROLE_ADMIN' ? 'accent' : 'primary'"
+            <mat-chip *ngFor="let p of element.perfils" [selected]="p.nome === 'ROLE_ADMIN'"
                 >{{p.nome.substring(5)}}</mat-chip>
           </mat-chip-list>
         </td>

@@ -85,6 +85,21 @@ export class DadosService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
+  findTurma(id: number): Observable<Turma> {
+    return this.http
+    .get<Turma>(`${SERVER_URL}/turmas/${id}`)
+    .pipe(
+      catchError(this.errorHandler.handle())
+    );
+  }
+
+  saveTurma(turma: Turma): Observable<void> {
+    return this.http.put<Turma>(`${SERVER_URL}/turmas/${turma.id}`, turma)
+      .pipe(
+        catchError(this.errorHandler.handle())
+    );
+  }
+
   registrarEntregaTema(entregasTema: EntregaTema[]): Observable<EntregaTema[]> {
     return this.http
       .post<EntregaTema[]>(`${SERVER_URL}/entregas-tema`, entregasTema)

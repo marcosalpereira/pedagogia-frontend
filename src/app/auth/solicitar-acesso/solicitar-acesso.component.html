@@ -15,7 +15,7 @@
 
       <mat-form-field>
         <input #nome="ngModel" matInput required type="text" name="nome" ngModel placeholder="Nome">
-        <mat-error *ngIf="email.hasError('required')">Obrigatório</mat-error>
+        <mat-error *ngIf="nome.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -31,9 +31,9 @@
         <mat-error *ngIf="senha.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
-      <mat-card-actions>
+      <mat-action-row>
         <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Solicitar</button>
-      </mat-card-actions>
+      </mat-action-row>
     </form>
 
   </mat-card-content>

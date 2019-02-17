@@ -59,7 +59,10 @@
               <mat-checkbox
                   (click)="$event.stopPropagation()"
                   (change)="$event ? element.presente = !element.presente : null"
-                  [checked]="element.presente">{{element.aluno.nome}}
+                  [checked]="element.presente">
+                  <span style="white-space: normal">
+                      {{element.aluno.nome}}
+                  </span>
               </mat-checkbox>
           </td>
         </ng-container>

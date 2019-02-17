@@ -47,7 +47,7 @@
               (click)="$event.stopPropagation()"
               (change)="$event ? element.entregue = !element.entregue : null; onChangeEntregue(element)"
               [checked]="element.entregue">
-              <span style="white-space: normal; padding-right: 5px;">
+              <span style="white-space: normal">
                 {{element.aluno.nome}}
               </span>
           </mat-checkbox>

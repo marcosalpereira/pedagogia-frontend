@@ -1,3 +1,59 @@
-<p>
-  turma-edit works!
-</p>
+<mat-card class="mat-elevation-z4">
+
+  <mat-card-header>
+    <mat-card-title>Editar Turma</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="turma">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field>
+        <mat-select #dia="ngModel" name="diaSemana" [(ngModel)]="turma.diaSemana" required placeholder="Dia da Semana">
+          <mat-option *ngFor="let o of diasSemana" [value]="o.eng">{{o.pt}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="dia.hasError('required')">Obrigatório</mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #nome="ngModel" matInput required type="text" name="nome" [(ngModel)]="turma.nome" placeholder="Nome">
+        <!-- <mat-error *ngIf="nome.hasError('required')">Obrigatório</mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #sala matInput required type="text" name="sala" [(ngModel)]="turma.sala" placeholder="Sala">
+        <!-- <mat-error *ngIf="sala.hasError('required')">Obrigatório</mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #codigo="ngModel" matInput required type="text" name="codigo" [(ngModel)]="turma.codigo"
+            placeholder="Código Mercúrio">
+        <mat-error *ngIf="codigo.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select #representante="ngModel" name="representante" [compareWith]='Model.compareFn'
+              [(ngModel)]="turma.representante" required placeholder="Representante">
+            <mat-option *ngFor="let o of alunos" [value]="o">{{o.nome}}</mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="representante.hasError('required')">Obrigatório</mat-error> -->
+      </mat-form-field>
+
+      <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Alunos</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list>
+            <mat-chip *ngFor="let aluno of alunos" [selected]="aluno.id === turma.representante?.id"
+            color="primary"
+            >{{aluno.nome}}</mat-chip>
+          </mat-chip-list>
+      </mat-expansion-panel>
+
+      <mat-action-row>
+        <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Alterar</button>
+        <button type="button" (click)="voltar()" mat-raised-button color="warn">Voltar</button>
+      </mat-action-row>
+    </form>
+
+  </mat-card-content>
+</mat-card>

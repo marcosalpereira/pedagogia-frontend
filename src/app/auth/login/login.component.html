@@ -19,10 +19,10 @@
         <mat-error *ngIf="senha.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
-      <mat-card-actions>
+      <mat-action-row>
         <button type="submit" [disabled]="form.invalid"
             mat-raised-button color="primary">Login</button>
-      </mat-card-actions>
+      </mat-action-row>
     </form>
 
   </mat-card-content>
