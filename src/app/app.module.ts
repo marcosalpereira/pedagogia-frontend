@@ -38,6 +38,7 @@ import { UsuarioComponent } from './auth/usuario/usuario.component';
 import { TurmaListComponent } from './turma/turma-list/turma-list.component';
 import { TurmaEditComponent } from './turma/turma-edit/turma-edit.component';
 import { DiaSemanaPipe } from './pipes/dia-semana.pipe';
+import { AlunoDetailComponent } from './turma/aluno-detail/aluno-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -69,7 +70,8 @@ const routes: Routes = [
     UsuarioComponent,
     TurmaListComponent,
     TurmaEditComponent,
-    DiaSemanaPipe
+    DiaSemanaPipe,
+    AlunoDetailComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}), BrowserModule,

@@ -18,23 +18,23 @@ export class TurmaEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dados: DadosService,
+    private dadosService: DadosService,
     private router: Router,
     public Model: ModelUtilService,
   ) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.dados.findTurma(id).subscribe(turma => {
+    this.dadosService.findTurma(id).subscribe(turma => {
       this.turma = turma;
-      this.dados.findAlunos(turma).subscribe(
-        alunos => {this.alunos = alunos; this.carregarFotos();}
+      this.dadosService.findAlunos(turma).subscribe(
+        alunos => this.alunos = alunos
       );
     });
   }
 
   onSubmit() {
-    this.dados.saveTurma(this.turma).subscribe(_ =>
+    this.dadosService.saveTurma(this.turma).subscribe(_ =>
       this.voltar()
     );
   }
@@ -43,23 +43,4 @@ export class TurmaEditComponent implements OnInit {
     this.router.navigate(['/turmas']);
   }
 
-  carregarFotos() {
-    this.alunos.forEach(a => this.carregarFoto(a));
-  }
-
-  carregarFoto(aluno: Aluno) {
-    this.dados.getFotoAluno(aluno)
-      .subscribe(data => this.createImageFromBlob(aluno, data));
-  }
-
-  createImageFromBlob(aluno: any, image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       aluno.imagem = reader.result;
-    }, false);
-
-    if (image) {
-       reader.readAsDataURL(image);
-    }
-}
 }

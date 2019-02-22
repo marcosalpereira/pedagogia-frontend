@@ -11,7 +11,7 @@
         <mat-select #dia="ngModel" name="diaSemana" [(ngModel)]="turma.diaSemana" required placeholder="Dia da Semana">
           <mat-option *ngFor="let o of diasSemana" [value]="o.eng">{{o.pt}}</mat-option>
         </mat-select>
-        <!-- <mat-error *ngIf="dia.hasError('required')">Obrigatório</mat-error> -->
+        <mat-error *ngIf="dia.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -26,29 +26,26 @@
 
       <mat-form-field>
         <input #codigo="ngModel" matInput required type="text" name="codigo" [(ngModel)]="turma.codigo"
-            placeholder="Código Mercúrio">
+          placeholder="Código Mercúrio">
         <mat-error *ngIf="codigo.hasError('required')">Obrigatório</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select #representante="ngModel" name="representante" [compareWith]='Model.compareFn'
-              [(ngModel)]="turma.representante" required placeholder="Representante">
-            <mat-option *ngFor="let o of alunos" [value]="o">{{o.nome}}</mat-option>
-          </mat-select>
-          <!-- <mat-error *ngIf="representante.hasError('required')">Obrigatório</mat-error> -->
+        <mat-select #representante="ngModel" name="representante" [compareWith]='Model.compareFn'
+          [(ngModel)]="turma.representante" required placeholder="Representante">
+          <mat-option *ngFor="let o of alunos" [value]="o">{{o.nome}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="representante.hasError('required')">Obrigatório</mat-error> -->
       </mat-form-field>
 
       <mat-expansion-panel [expanded]="alunoExpanded">
-          <mat-expansion-panel-header>
-            <mat-panel-title>Alunos</mat-panel-title>
-          </mat-expansion-panel-header>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Alunos</mat-panel-title>
+        </mat-expansion-panel-header>
 
-          <mat-card class="foto-card" *ngFor="let aluno of alunos">
-            <img mat-card-image *ngIf="alunoExpanded" [src]="aluno.imagem" width="250px" height="auto">
-            <mat-card-content>
-              <span class="nome" [class.representante]="aluno.id === turma.representante?.id">{{aluno.nome}}</span>
-            </mat-card-content>
-          </mat-card>
+        <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno"
+          [representante]="aluno.id === turma.representante?.id">
+        </app-aluno-detail>
 
       </mat-expansion-panel>
 
