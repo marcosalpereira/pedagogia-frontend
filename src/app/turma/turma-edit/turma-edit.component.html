@@ -38,15 +38,18 @@
           <!-- <mat-error *ngIf="representante.hasError('required')">Obrigatório</mat-error> -->
       </mat-form-field>
 
-      <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel [expanded]="alunoExpanded">
           <mat-expansion-panel-header>
             <mat-panel-title>Alunos</mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-chip-list>
-            <mat-chip *ngFor="let aluno of alunos" [selected]="aluno.id === turma.representante?.id"
-            color="primary"
-            >{{aluno.nome}}</mat-chip>
-          </mat-chip-list>
+
+          <mat-card class="foto-card" *ngFor="let aluno of alunos">
+            <img mat-card-image *ngIf="alunoExpanded" [src]="aluno.imagem" width="250px" height="auto">
+            <mat-card-content>
+              <span class="nome" [class.representante]="aluno.id === turma.representante?.id">{{aluno.nome}}</span>
+            </mat-card-content>
+          </mat-card>
+
       </mat-expansion-panel>
 
       <mat-action-row>

@@ -1,0 +1,15 @@
+.nome {
+  font-size: 70%;
+  white-space: normal;
+}
+
+.representante {
+  font-weight: bold;
+}
+
+.foto-card {
+  display: inline-block;
+  width: 100px;
+  height: 70px;
+  border: solid 1px black;
+}

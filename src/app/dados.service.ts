@@ -123,5 +123,10 @@ export class DadosService {
       .pipe(catchError(this.errorHandler.handle()));
   }
 
-
+  public getFotoAluno(aluno: Aluno): Observable<Blob> {
+    return this.http
+      .get(`${SERVER_URL}/alunos/${aluno.matricula}/foto`, {
+        responseType: "blob"
+      });
+  }
 }
