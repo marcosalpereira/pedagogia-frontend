@@ -5,7 +5,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Usuario, Perfil } from '../model/usuario';
-import { ApiErrorHandlerService } from '../api-error-handler-service.service';
+import { ApiErrorHandlerService } from '../api-error-handler.service';
 import { environment } from 'src/environments/environment';
 import { MessageService } from '../util/message.service';
 

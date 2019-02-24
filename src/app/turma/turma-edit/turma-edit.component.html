@@ -42,12 +42,11 @@
         <mat-expansion-panel-header>
           <mat-panel-title>Alunos</mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-form-field>
-            <mat-checkbox #check>Mostrar fotos</mat-checkbox>
-          </mat-form-field>
+
+        <mat-checkbox name="showFoto" [(ngModel)]="showFoto">Mostrar fotos</mat-checkbox>
 
         <div class="alunos">
-          <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno" [showFoto]="check.checked"
+          <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno" [(showFoto)]="showFoto"
             [representante]="aluno.id === turma.representante?.id">
           </app-aluno-detail>
         </div>

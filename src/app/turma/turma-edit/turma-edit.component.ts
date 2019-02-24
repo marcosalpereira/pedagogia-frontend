@@ -15,6 +15,7 @@ export class TurmaEditComponent implements OnInit {
   alunos: Aluno[];
   diasSemana = DIAS_SEMANA;
   alunoExpanded = true;
+  showFoto = false;
 
   constructor(
     private route: ActivatedRoute,

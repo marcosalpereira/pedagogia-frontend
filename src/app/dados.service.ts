@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ApiErrorHandlerService } from './api-error-handler-service.service';
+import { ApiErrorHandlerService } from './api-error-handler.service';
 import { EntregaTema } from './model/entrega-tema';
 import { Tema } from './model/tema';
 import { Turma, DAYOFWEEK, Nivel } from './model/turma';
