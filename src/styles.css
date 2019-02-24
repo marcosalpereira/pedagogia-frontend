@@ -10,3 +10,40 @@ mat-form-field {
 .mat-cell, .mat-header-cell {
   padding-right: 10px !important;
 }
+
+.alunos .aluno {
+  width: 150px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin-left: 10px;
+  margin-top: 15px;
+  display: inline-block;
+  position: relative;
+}
+
+.alunos .aluno img {
+  width: 100%;
+}
+
+.alunos .aluno .nome {
+    padding: 5px;
+    font-size: 70%;
+    color: gray;
+    overflow: hidden;
+}
+
+.alunos .aluno .nome p {
+    height: 2rem;
+}
+
+.alunos .aluno .representante {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #313aa2;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+    padding: 5px 10px;
+    cursor: default;
+}

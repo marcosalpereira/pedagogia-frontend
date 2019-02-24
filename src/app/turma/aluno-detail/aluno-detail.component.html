@@ -1,6 +1,7 @@
-<mat-card class="foto-card">
-  <img mat-card-image [src]="aluno.imagem" width="250px" height="auto">
-  <mat-card-content>
-    <span class="nome" [class.representante]="representante">{{aluno.nome}}</span>
-  </mat-card-content>
-</mat-card>
+<div class="aluno">
+  <img *ngIf="showFoto" [src]="imagem" alt="Foto não encontrada"/>
+  <div class="nome">
+    <p title="{{aluno.nome}}">{{aluno.nome}}</p>
+  </div>
+  <div *ngIf="representante" class="representante" title="Representante da turma">R</div>
+</div>

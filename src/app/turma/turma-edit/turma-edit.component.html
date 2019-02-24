@@ -11,7 +11,7 @@
         <mat-select #dia="ngModel" name="diaSemana" [(ngModel)]="turma.diaSemana" required placeholder="Dia da Semana">
           <mat-option *ngFor="let o of diasSemana" [value]="o.eng">{{o.pt}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="dia.hasError('required')">Obrigatório</mat-error>
+        <!-- <mat-error *ngIf="dia.hasError('required')">Obrigatório</mat-error> -->
       </mat-form-field>
 
       <mat-form-field>
@@ -27,7 +27,7 @@
       <mat-form-field>
         <input #codigo="ngModel" matInput required type="text" name="codigo" [(ngModel)]="turma.codigo"
           placeholder="Código Mercúrio">
-        <mat-error *ngIf="codigo.hasError('required')">Obrigatório</mat-error>
+        <!-- <mat-error *ngIf="codigo.hasError('required')">Obrigatório</mat-error> -->
       </mat-form-field>
 
       <mat-form-field>
@@ -38,15 +38,19 @@
         <!-- <mat-error *ngIf="representante.hasError('required')">Obrigatório</mat-error> -->
       </mat-form-field>
 
-      <mat-expansion-panel [expanded]="alunoExpanded">
+      <mat-expansion-panel [(expanded)]="alunoExpanded">
         <mat-expansion-panel-header>
           <mat-panel-title>Alunos</mat-panel-title>
         </mat-expansion-panel-header>
+        <mat-form-field>
+            <mat-checkbox #check>Mostrar fotos</mat-checkbox>
+          </mat-form-field>
 
-        <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno"
-          [representante]="aluno.id === turma.representante?.id">
-        </app-aluno-detail>
-
+        <div class="alunos">
+          <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno" [showFoto]="check.checked"
+            [representante]="aluno.id === turma.representante?.id">
+          </app-aluno-detail>
+        </div>
       </mat-expansion-panel>
 
       <mat-action-row>
