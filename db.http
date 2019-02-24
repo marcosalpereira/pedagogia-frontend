@@ -1,4 +1,15 @@
+POST  https://localhost:8443/pedagogia/api/login
+Content-Type: application/json
 
+{ "email": "na@na.com.br", "senha": "123"}
+
+###
+
+GET  https://localhost:8443/pedagogia/api/alunos/1/foto
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYUBuYS5jb20uYnIiLCJleHAiOjE1NTEwNDQ0NDAsIlJPTEVTIjoiUk9MRV9BRE1JTiJ9.TsXR5aA9KPt1VX37IDiZkmfcx1t6FW_V-0sdii78YJrtXyiVqTET6enJbtM-rlT9bl5mW2cijw4usthhihIVKw
+
+###
 
 POST https://localhost:8443/pedagogia/api/usuarios/signon
 Content-Type: application/json
