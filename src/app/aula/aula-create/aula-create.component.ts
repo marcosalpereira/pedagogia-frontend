@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma, dayOfWeek, DAYOFWEEK } from 'src/app/model/turma';
-import { Professor } from 'src/app/model/professor';
 import { Aula } from 'src/app/model/aula';
 import { Materia } from 'src/app/model/materia';
 import { Capitulo } from 'src/app/model/capitulo';
@@ -8,9 +7,6 @@ import { Tema } from 'src/app/model/tema';
 import { MessageService } from 'src/app/util/message.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DadosService } from 'src/app/dados.service';
-import { NgForm } from '@angular/forms';
-import { BaseModel } from 'src/app/model/base-model';
-import { Presenca } from 'src/app/model/presenca';
 import { Aluno } from 'src/app/model/aluno';
 import { Usuario } from 'src/app/model/usuario';
 import { ModelUtilService } from 'src/app/util/model-util.service';
@@ -70,6 +66,11 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onChangeMateria() {
+    if (!this.materiaSel) {
+      this.temas = undefined;
+      return;
+    }
+
     this.temas = this.materiaSel.temas;
 
     this.dadosService.findAula(this.turmaSel, this.materiaSel, this.data)
@@ -82,6 +83,7 @@ export class AulaCreateComponent implements OnInit {
           this.capitulos = this.temaSel.capitulos;
           this.aula = aula;
         },
+        // se nao existe ainda a aula registrada, cria-la
         () => this.aula = {
           turma: this.turmaSel,
           data: this.data,

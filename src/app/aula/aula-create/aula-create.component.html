@@ -19,8 +19,9 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select name="materia" (selectionChange)="onChangeMateria()" [(ngModel)]="materiaSel" placeholder="Escolha a Matéria"
-          required>
+        <mat-select name="materia" (selectionChange)="onChangeMateria()"
+            [(ngModel)]="materiaSel" placeholder="Escolha a Matéria"
+            [required]="materias.length > 0">
           <mat-option *ngFor="let o of materias" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
