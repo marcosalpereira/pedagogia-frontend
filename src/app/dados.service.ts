@@ -109,7 +109,8 @@ export class DadosService {
   findAula(turma: Turma, materia: Materia, pdata: Date): Observable<Aula> {
     const idTurma = `${turma.id}`;
     const idMateria = `${materia.id}`;
-    const data = `${pdata.toISOString()}`;
+    const dt = new Date(pdata.getTime() - (pdata.getTimezoneOffset() * 60000));
+    const data = `${dt.toISOString()}`;
     const params = { idTurma, idMateria, data };
     return this.http
       .get<Turma[]>(`${SERVER_URL}/aulas`, { params })
@@ -118,6 +119,7 @@ export class DadosService {
   }
 
   registrarAula(aula: Aula): Observable<Aula> {
+    aula.materia.temas = [];
     return this.http
       .post<Aula>(`${SERVER_URL}/aulas`, aula)
       .pipe(catchError(this.errorHandler.handle()));

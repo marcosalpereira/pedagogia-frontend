@@ -66,21 +66,21 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onChangeMateria() {
-    if (!this.materiaSel) {
-      this.temas = undefined;
-      return;
-    }
-
     this.temas = this.materiaSel.temas;
 
     this.dadosService.findAula(this.turmaSel, this.materiaSel, this.data)
       .subscribe(
         aula => {
           console.log('achou aula', aula);
-          this.temaSel = this.findTema(aula.capitulo);
-
-          this.capituloSel = aula.capitulo;
-          this.capitulos = this.temaSel.capitulos;
+          if (aula.capitulo) {
+            this.temaSel = this.findTema(aula.capitulo);
+            this.capituloSel = aula.capitulo;
+            this.capitulos = this.temaSel.capitulos;
+          } else {
+            this.temaSel = undefined;
+            this.capitulos = undefined;
+            this.capituloSel = undefined;
+          }
           this.aula = aula;
         },
         // se nao existe ainda a aula registrada, cria-la

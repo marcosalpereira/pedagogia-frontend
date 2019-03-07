@@ -14,14 +14,13 @@
 
       <mat-form-field>
         <mat-select name="turma" (selectionChange)="onChangeTurma()" [(ngModel)]="turmaSel" placeholder="Escolha a Turma" required>
-          <mat-option *ngFor="let o of turmas" [value]="o">{{o.nome}}&nbsp;{{o.sala}}</mat-option>
+          <mat-option *ngFor="let o of turmas" [value]="o">{{o.sala ? o.nome + ' na ' + o.sala : o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-select name="materia" (selectionChange)="onChangeMateria()"
-            [(ngModel)]="materiaSel" placeholder="Escolha a Matéria"
-            [required]="materias.length > 0">
+            [(ngModel)]="materiaSel" placeholder="Escolha a Matéria" required>
           <mat-option *ngFor="let o of materias" [value]="o">{{o.nome}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -36,18 +35,21 @@
 
       <p>Conteúdo Dado</p>
 
-      <mat-form-field>
-        <mat-select [compareWith]='Model.compareFn' name="tema" [(ngModel)]="temaSel" placeholder="Escolha o Tema" required>
-          <mat-option *ngFor="let o of temas" [value]="o">{{o.nome}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <ng-container *ngIf="temas?.length > 0">
+        <mat-form-field>
+          <mat-select [compareWith]='Model.compareFn' name="tema" [(ngModel)]="temaSel"
+              placeholder="Escolha o Tema" required>
+            <mat-option *ngFor="let o of temas" [value]="o">{{o.nome}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select [compareWith]='Model.compareFn' name="capitulo" [(ngModel)]="capituloSel" placeholder="Escolha o Capítulo" required>
-          <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
+        <mat-form-field>
+          <mat-select [compareWith]='Model.compareFn' name="capitulo" [(ngModel)]="capituloSel"
+              placeholder="Escolha o Capítulo" required>
+            <mat-option *ngFor="let o of temaSel?.capitulos" [value]="o">{{o.numero}}-{{o.nome}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
       <mat-form-field style="width: 100%">
         <textarea name="observacao" #observacao="ngModel" [(ngModel)]="aula.observacao" matInput placeholder="Observação"></textarea>
       </mat-form-field>
