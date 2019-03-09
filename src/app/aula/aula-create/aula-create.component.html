@@ -54,26 +54,23 @@
         <textarea name="observacao" #observacao="ngModel" [(ngModel)]="aula.observacao" matInput placeholder="Observação"></textarea>
       </mat-form-field>
 
-      <table mat-table [dataSource]="aula?.presencas">
+      <p>Marque os que estiveram presentes</p>
+      <mat-checkbox name="showFoto" [(ngModel)]="showFoto">Mostrar fotos</mat-checkbox>
 
-        <ng-container matColumnDef="presenca">
-          <th mat-header-cell *matHeaderCellDef>Alunos Presentes</th>
-          <td mat-cell *matCellDef="let element">
+      <div class="alunos">
+        <ng-container *ngFor="let presenca of aula?.presencas">
+          <app-aluno-detail  [aluno]="presenca.aluno" [(showFoto)]="showFoto">
               <mat-checkbox
-                  (click)="$event.stopPropagation()"
-                  (change)="$event ? element.presente = !element.presente : null"
-                  [checked]="element.presente">
-                  <span style="white-space: normal">
-                      {{element.aluno.nome}}
-                  </span>
+                [title]="presenca.aluno.nome"
+                (click)="$event.stopPropagation()"
+                (change)="$event ? presenca.presente = !presenca.presente : null"
+                [checked]="presenca.presente"
+                  >{{presenca.aluno.nome}}
               </mat-checkbox>
-          </td>
+
+          </app-aluno-detail>
         </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
+      </div>
       <mat-action-row>
         <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Registrar</button>
         <button type="reset" mat-raised-button color="warn">Limpar</button>

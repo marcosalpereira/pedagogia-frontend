@@ -1,7 +1,7 @@
 <div class="aluno">
   <img *ngIf="showFoto" [src]="imagem" alt="Foto não encontrada"/>
   <div class="nome">
-    <p title="{{aluno.nome}}">{{aluno.nome}}</p>
+    <ng-content></ng-content>    
   </div>
   <div *ngIf="representante" class="representante" title="Representante da turma">R</div>
 </div>

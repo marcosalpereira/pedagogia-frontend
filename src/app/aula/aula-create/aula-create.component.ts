@@ -29,6 +29,7 @@ export class AulaCreateComponent implements OnInit {
   temas: Tema[];
   capitulos: Capitulo[];
   alunos: Aluno[];
+  showFoto = false;
 
   displayedColumns: string[] = ['presenca'];
   usuarioLogado: Usuario;
@@ -106,7 +107,7 @@ export class AulaCreateComponent implements OnInit {
 
   onRegistrarClick() {
     this.aula.data = this.data;
-    this.aula.capitulo = this.capituloSel;
+    this.aula.capitulo = this.temas.length ? this.capituloSel : undefined;
     this.dadosService.registrarAula(this.aula)
       .subscribe(auladb => {
         this.message.show('Aula Registrada!');

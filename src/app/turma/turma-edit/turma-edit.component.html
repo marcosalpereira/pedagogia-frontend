@@ -48,6 +48,7 @@
         <div class="alunos">
           <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno" [(showFoto)]="showFoto"
             [representante]="aluno.id === turma.representante?.id">
+            <p title="{{aluno.nome}}">{{aluno.nome}}</p>
           </app-aluno-detail>
         </div>
       </mat-expansion-panel>
