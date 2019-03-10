@@ -44,7 +44,7 @@ mat-form-field {
     height: 2rem;
 }
 
-.alunos .aluno .representante {
+.alunos .aluno .marked {
     position: absolute;
     top: 5px;
     right: 5px;

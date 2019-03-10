@@ -3,5 +3,5 @@
   <div class="nome">
     <ng-content></ng-content>    
   </div>
-  <div *ngIf="representante" class="representante" title="Representante da turma">R</div>
+  <div *ngIf="marked" class="marked" [title]="markedDescription">{{markedChar}}</div>
 </div>

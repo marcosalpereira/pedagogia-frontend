@@ -58,7 +58,7 @@
       <mat-checkbox name="showFoto" [(ngModel)]="showFoto">Mostrar fotos</mat-checkbox>
 
       <div class="alunos">
-        <ng-container *ngFor="let presenca of aula?.presencas">
+        <ng-container *ngFor="let presenca of (aula?.presencas | sortByAluno)"> 
           <app-aluno-detail  [aluno]="presenca.aluno" [(showFoto)]="showFoto">
               <mat-checkbox
                 [title]="presenca.aluno.nome"

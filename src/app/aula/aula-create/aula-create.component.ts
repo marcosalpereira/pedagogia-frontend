@@ -31,7 +31,6 @@ export class AulaCreateComponent implements OnInit {
   alunos: Aluno[];
   showFoto = false;
 
-  displayedColumns: string[] = ['presenca'];
   usuarioLogado: Usuario;
 
   constructor(

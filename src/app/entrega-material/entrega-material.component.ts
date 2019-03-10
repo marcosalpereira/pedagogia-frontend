@@ -27,9 +27,8 @@ export class EntregaMaterialComponent implements OnInit {
   diaSel: DAYOFWEEK;
   diasSemana = DIAS_SEMANA;
   alunos: Aluno[];
+  showFoto = false;
 
-
-  displayedColumns: string[] = ['aluno', 'data'];
   usuarioLogado: Usuario;
 
   constructor(

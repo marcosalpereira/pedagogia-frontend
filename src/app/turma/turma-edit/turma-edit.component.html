@@ -47,7 +47,8 @@
 
         <div class="alunos">
           <app-aluno-detail *ngFor="let aluno of alunos" [aluno]="aluno" [(showFoto)]="showFoto"
-            [representante]="aluno.id === turma.representante?.id">
+            [marked]="aluno.id === turma.representante?.id"
+            markedChar="R" markedDesvription="Representante da Turma">
             <p title="{{aluno.nome}}">{{aluno.nome}}</p>
           </app-aluno-detail>
         </div>
