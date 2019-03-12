@@ -9,8 +9,10 @@ import { DadosService } from 'src/app/dados.service';
 })
 export class AlunoDetailComponent implements OnInit, OnChanges {
   @Input() aluno: Aluno;
-  @Input() representante: boolean;
   @Input() showFoto: boolean;
+  @Input() marked: boolean;
+  @Input() markedChar: string;
+  @Input() markedDescription;
 
   imagem: any;
 

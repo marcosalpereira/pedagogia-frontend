@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma, dayOfWeek, DAYOFWEEK } from 'src/app/model/turma';
-import { Professor } from 'src/app/model/professor';
 import { Aula } from 'src/app/model/aula';
 import { Materia } from 'src/app/model/materia';
 import { Capitulo } from 'src/app/model/capitulo';
@@ -8,9 +7,6 @@ import { Tema } from 'src/app/model/tema';
 import { MessageService } from 'src/app/util/message.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DadosService } from 'src/app/dados.service';
-import { NgForm } from '@angular/forms';
-import { BaseModel } from 'src/app/model/base-model';
-import { Presenca } from 'src/app/model/presenca';
 import { Aluno } from 'src/app/model/aluno';
 import { Usuario } from 'src/app/model/usuario';
 import { ModelUtilService } from 'src/app/util/model-util.service';
@@ -33,8 +29,8 @@ export class AulaCreateComponent implements OnInit {
   temas: Tema[];
   capitulos: Capitulo[];
   alunos: Aluno[];
+  showFoto = false;
 
-  displayedColumns: string[] = ['presenca'];
   usuarioLogado: Usuario;
 
   constructor(
@@ -76,12 +72,18 @@ export class AulaCreateComponent implements OnInit {
       .subscribe(
         aula => {
           console.log('achou aula', aula);
-          this.temaSel = this.findTema(aula.capitulo);
-
-          this.capituloSel = aula.capitulo;
-          this.capitulos = this.temaSel.capitulos;
+          if (aula.capitulo) {
+            this.temaSel = this.findTema(aula.capitulo);
+            this.capituloSel = aula.capitulo;
+            this.capitulos = this.temaSel.capitulos;
+          } else {
+            this.temaSel = undefined;
+            this.capitulos = undefined;
+            this.capituloSel = undefined;
+          }
           this.aula = aula;
         },
+        // se nao existe ainda a aula registrada, cria-la
         () => this.aula = {
           turma: this.turmaSel,
           data: this.data,
@@ -104,7 +106,7 @@ export class AulaCreateComponent implements OnInit {
 
   onRegistrarClick() {
     this.aula.data = this.data;
-    this.aula.capitulo = this.capituloSel;
+    this.aula.capitulo = this.temas.length ? this.capituloSel : undefined;
     this.dadosService.registrarAula(this.aula)
       .subscribe(auladb => {
         this.message.show('Aula Registrada!');

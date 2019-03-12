@@ -9,6 +9,6 @@ export interface Aula extends BaseModel {
     turma: Turma;
     materia: Materia;
     presencas: Presenca[];
-    capitulo: Capitulo;
+    capitulo?: Capitulo;
     observacao?: string;
 }

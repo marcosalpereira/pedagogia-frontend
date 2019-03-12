@@ -6,3 +6,7 @@ export interface Aluno extends BaseModel {
     sede: Sede;
     matricula: number;
 }
+
+export interface HasAluno {
+    aluno: Aluno;
+}
