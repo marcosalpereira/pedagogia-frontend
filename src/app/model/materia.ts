@@ -1,9 +1,9 @@
 import { Capitulo } from './capitulo';
 import { Tema } from './tema';
-import { BaseModel } from './base-model';
+import { BaseModel, Named } from './base-model';
 import { Nivel } from './turma';
 
-export interface Materia extends BaseModel {
+export interface Materia extends BaseModel, Named {
     nivel: Nivel;
     nome: string;
     temas: Tema[];

@@ -1,7 +1,7 @@
-import { BaseModel } from './base-model';
+import { BaseModel, Named } from './base-model';
 import { Sede } from './sede';
 
-export interface Aluno extends BaseModel {
+export interface Aluno extends BaseModel, Named {
     nome: string;
     sede: Sede;
     matricula: number;

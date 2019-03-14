@@ -40,6 +40,8 @@ import { TurmaEditComponent } from './turma/turma-edit/turma-edit.component';
 import { DiaSemanaPipe } from './pipes/dia-semana.pipe';
 import { AlunoDetailComponent } from './turma/aluno-detail/aluno-detail.component';
 import { SortByAlunoPipe } from './aula/pipes/sort-by-aluno.pipe';
+import { SortByNomePipe } from './shared/pipes/sort-by-nome.pipe';
+import { SortByNumeroPipe } from './shared/pipes/sort-by-numero.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -73,7 +75,9 @@ const routes: Routes = [
     TurmaEditComponent,
     DiaSemanaPipe,
     AlunoDetailComponent,
-    SortByAlunoPipe
+    SortByAlunoPipe,
+    SortByNomePipe,
+    SortByNumeroPipe
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}), BrowserModule,

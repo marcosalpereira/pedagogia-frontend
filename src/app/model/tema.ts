@@ -1,8 +1,8 @@
 import { Capitulo } from './capitulo';
-import { BaseModel } from './base-model';
+import { BaseModel, Numbered } from './base-model';
 import { Materia } from './materia';
 
-export interface Tema extends BaseModel {
+export interface Tema extends BaseModel, Numbered {
     materia: Materia;
     numero: number;
     nome: string;

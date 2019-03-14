@@ -12,7 +12,7 @@ export class SortByAlunoPipe implements PipeTransform {
       if (a.aluno.nome < b.aluno.nome) { return -1; }
       if (a.aluno.nome > b.aluno.nome) { return 1; }
       return 0;
-    })
+    });
   }
 
 }

@@ -1,6 +1,6 @@
 import { Professor } from './professor';
 import { Aluno } from './aluno';
-import { BaseModel } from './base-model';
+import { BaseModel, Named } from './base-model';
 import { Materia } from './materia';
 
 export type DAYOFWEEK = 'SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY';
@@ -10,7 +10,7 @@ export interface Nivel extends BaseModel {
     materias: Materia[];
 }
 
-export interface Turma extends BaseModel {
+export interface Turma extends BaseModel, Named {
     nome: string;
     sala?: string;
     nivel: Nivel;
@@ -19,15 +19,6 @@ export interface Turma extends BaseModel {
     representante?: Aluno;
     diaSemana: DAYOFWEEK;
     codigo: string;
-}
-
-export function dayOfWeek(date: Date): DAYOFWEEK {
-    return  date ? DIAS_SEMANA[date.getDay()].eng : undefined;
-}
-
-export interface DiaSemana {
-    eng: DAYOFWEEK;
-    pt: string;
 }
 
 export const DIAS_SEMANA: DiaSemana[] = [
@@ -39,3 +30,12 @@ export const DIAS_SEMANA: DiaSemana[] = [
     {eng: 'FRIDAY', pt: 'Sexta'},
     {eng: 'SATURDAY', pt: 'Sábado'},
 ];
+
+export function dayOfWeek(date: Date): DAYOFWEEK {
+    return  date ? DIAS_SEMANA[date.getDay()].eng : undefined;
+}
+
+export interface DiaSemana {
+    eng: DAYOFWEEK;
+    pt: string;
+}

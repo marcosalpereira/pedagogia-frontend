@@ -52,6 +52,8 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onChangeTurma() {
+    this.materias = this.materiaSel = this.aula = this.temas = this.temaSel = this.capitulos = this.capituloSel = undefined;
+
     this.dadosService.findMaterias(this.turmaSel)
       .subscribe(materias => this.materias = materias);
 
@@ -60,12 +62,16 @@ export class AulaCreateComponent implements OnInit {
   }
 
   onChangeData() {
+    this.turmaSel = this.turmas = this.materias = this.materiaSel = this.aula = undefined;
+    this.temas = this.temaSel = this.capitulos = this.capituloSel = undefined;
     const dia: DAYOFWEEK = dayOfWeek(this.data);
     this.dadosService.findTurmas(dia, this.usuarioLogado.sede)
       .subscribe(turmas => this.turmas = turmas);
   }
 
   onChangeMateria() {
+    this.temaSel = this.capitulos = this.capituloSel = undefined;
+
     this.temas = this.materiaSel.temas;
 
     this.dadosService.findAula(this.turmaSel, this.materiaSel, this.data)
@@ -76,10 +82,6 @@ export class AulaCreateComponent implements OnInit {
             this.temaSel = this.findTema(aula.capitulo);
             this.capituloSel = aula.capitulo;
             this.capitulos = this.temaSel.capitulos;
-          } else {
-            this.temaSel = undefined;
-            this.capitulos = undefined;
-            this.capituloSel = undefined;
           }
           this.aula = aula;
         },
