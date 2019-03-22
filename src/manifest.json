@@ -2,9 +2,9 @@
     "name": "Pedagogia",
     "icons": [
       {
-        "src": "assets/fogueira.jped",
+        "src": "assets/fogueira.jpeg",
         "sizes": "128x128",
-        "type": "image/png",
+        "type": "image/jpeg",
         "density": 1.0
       }
     ],
