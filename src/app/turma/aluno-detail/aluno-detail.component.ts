@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, ɵConsole } from '@angular/core';
 import { Aluno } from 'src/app/model/aluno';
 import { DadosService } from 'src/app/dados.service';
 
@@ -15,6 +15,7 @@ export class AlunoDetailComponent implements OnInit, OnChanges {
   @Input() markedDescription;
 
   imagem: any;
+  imagemReady = false;
 
   constructor(private dadosService: DadosService) {}
 
@@ -39,6 +40,7 @@ export class AlunoDetailComponent implements OnInit, OnChanges {
       'load',
       () => {
         this.imagem = reader.result;
+        this.imagemReady = true;
       },
       false
     );

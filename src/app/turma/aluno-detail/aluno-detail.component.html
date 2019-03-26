@@ -1,7 +1,7 @@
 <div class="aluno">
-  <img *ngIf="showFoto" [src]="imagem" alt="Foto não encontrada"/>
+  <img *ngIf="showFoto && imagemReady" [src]="imagem" alt="Foto não encontrada"/>
   <div class="nome">
-    <ng-content></ng-content>    
+    <ng-content></ng-content>
   </div>
   <div *ngIf="marked" class="marked" [title]="markedDescription">{{markedChar}}</div>
 </div>
